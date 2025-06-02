@@ -1,0 +1,31 @@
+
+
+@font-face {
+font-family: "Bold";
+src: url('../fonts/SF-Pro-Display-Bold.otf');
+font-style: normal;
+font-weight: 700;
+}
+
+
+@font-face {
+font-family: "SemiBold";
+src: url('../fonts/SF-Pro-Display-Semibold.otf');
+font-style: normal;
+font-weight: 600;
+}
+
+
+@font-face {
+font-family: "Medium";
+src: url('../fonts/SF-Pro-Display-Medium.otf');
+font-style: normal;
+font-weight: 500;
+}
+
+@font-face {
+font-family: "Regular";
+src: url('../fonts/SF-Pro-Display-Regular.otf');
+font-style: normal;
+font-weight: 400;
+}

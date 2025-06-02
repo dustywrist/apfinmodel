@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta property="og:title" content="NOT" />
+  <meta property="og:description" content="imaginary music site" />
+  <link rel="icon" type="image/x-icon" href="images/favicon.png" />
+  <link rel="stylesheet" href="stylesheets/style.css" />
+  <title>NOT</title>
+</head>
+<body>
+
+  <section class="background_v1">
+    <div class="background">
+      <img src="images/screen_1_5.png" class="floating" id="small_5" />
+      <img src="images/screen_1_4.png" class="floating" id="small_1" />
+      <img src="images/screen_1_3.png" class="floating" id="small_4" />
+      <img src="images/screen_1_6.png" class="floating" id="small_3" />
+      <img src="images/screen_1_1.png" class="floating" id="small_6" />
+      <img src="images/screen_1_2.png" class="floating" id="small_2" />
+    </div>
+  </section>
+
+  <div class="menu_hi">
+    <div class="icon-button"></div>
+    <button class="button" data-i18n="letsGo">Let's go!</button>
+    <button class="button" id="langToggle" data-i18n="lang">RU</button>
+  </div>
+
+  <div id="videoContainer" style="position: fixed; top: 0; left: 0; z-index: -1; width: 100%; height: 100%; overflow: hidden; display: none;"></div>
+
+  <!-- GSAP & ScrollTrigger -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+  <script>
+    gsap.registerPlugin(ScrollTrigger);
+
+    const shapes = document.querySelectorAll('.floating');
+    const iconButton = document.querySelector('.icon-button');
+    const backgroundSection = document.querySelector('.background_v1');
+    const videoContainer = document.getElementById('videoContainer');
+    let videoMode = false;
+
+    // GSAP animation
+    shapes.forEach((shape) => {
+      gsap.to(shape, {
+        x: Math.random() * 80 - 40,
+        y: Math.random() * 80 - 40,
+        rotation: Math.random() * 20 - 10,
+        duration: (Math.random() * 3 + 3) * 3,
+        repeat: -1,
+        yoyo: true,
+        ease: "sine.inOut",
+        delay: Math.random() * 2
+      });
+    });
+
+    // Mousemove parallax
+    document.addEventListener("mousemove", (e) => {
+      const { innerWidth, innerHeight } = window;
+      const x = (e.clientX / innerWidth - 0.5) * 10;
+      const y = (e.clientY / innerHeight - 0.5) * 10;
+
+      shapes.forEach((shape, i) => {
+        gsap.to(shape, {
+          xPercent: x * (0.5 + i * 0.2),
+          yPercent: y * (0.5 + i * 0.2),
+          duration: 2,
+          ease: "power2.out"
+        });
+      });
+    });
+
+    // Create and append video
+    const video = document.createElement('video');
+    video.src = 'images/ap_fin_video.mp4';
+    video.autoplay = true;
+    video.loop = true;
+    video.muted = true;
+    video.playsInline = true;
+    video.controls = false;
+    video.style.width = '100%';
+    video.style.height = '100%';
+    video.style.objectFit = 'cover';
+    video.style.pointerEvents = 'none';
+    videoContainer.appendChild(video);
+
+    // Toggle background/video
+    iconButton.addEventListener('click', () => {
+      videoMode = !videoMode;
+
+      if (videoMode) {
+        backgroundSection.style.display = 'none';
+        videoContainer.style.display = 'block';
+      } else {
+        backgroundSection.style.display = 'block';
+        videoContainer.style.display = 'none';
+      }
+    });
+
+    // Language support
+    const translations = {
+      ru: {
+        letsGo: "Поехали!",
+        lang: "EN"
+      },
+      en: {
+        letsGo: "Let's go!",
+        lang: "RU"
+      }
+    };
+
+    let currentLang = 'en';
+
+    const updateLanguage = () => {
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (translations[currentLang][key]) {
+          el.textContent = translations[currentLang][key];
+        }
+      });
+    };
+
+    document.getElementById('langToggle').addEventListener('click', () => {
+      currentLang = currentLang === 'ru' ? 'en' : 'ru';
+      updateLanguage();
+    });
+
+    updateLanguage(); // Initial language update
+
+    // Redirect on button click
+    document.querySelector('[data-i18n="letsGo"]').addEventListener('click', () => {
+      window.location.href = 'works.html'; // Change to your desired page
+    });
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta property="og:title" content="NOT" />
+  <meta property="og:description" content="imaginary music site" />
+  <link rel="icon" type="image/x-icon" href="images/favicon.png" />
+  <link rel="stylesheet" href="stylesheets/style.css" />
+  <title>NOT</title>
+</head>
+<body>
+
+<section class="main_menu">
+
+    <button>🌍</button>
+    <button>Author</button>
+    <button>Works</button>
+    <button>Pictures</button>
+    
+</section>
+
+<section class="my_works">
+
+    <section class="panel">
+        <div class="zine_work"></div>
+        <button class="button" data-i18n="Zinedesign">Zine design</button>
+    </section>
+
+    <section class="panel">
+        <div class="creative_website"></div>
+        <button class="button" data-i18n="Creativewebsite">Creative website for the festival</button>
+    </section>
+
+    <section class="panel">
+        <div class="posters"></div>
+        <button class="button" data-i18n="Posters">Posters</button>
+    </section>
+
+</section>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+<script>
+gsap.registerPlugin(ScrollTrigger);
+
+gsap.to(".my_works", {
+    xPercent: -200,
+    ease: "none",
+    scrollTrigger: {
+    trigger: ".my_works",
+    pin: true,
+    scrub: 1,
+    snap: 1 / 2,
+    end: () => "+=" + document.querySelector(".my_works").offsetWidth
+    }
+});
+</script>
+
+</body>
+</html>
