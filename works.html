@@ -9,33 +9,57 @@
   <link rel="stylesheet" href="stylesheets/style.css" />
   <title>NOT</title>
 </head>
+
+
 <body>
 
 <section class="main_menu">
 
-    <button>🌍</button>
-    <button>Author</button>
-    <button>Works</button>
-    <button>Pictures</button>
-    
+    <section class="hi_to_hi">
+
+  <button class="main_hi"></button>
+
+  </section>
+
+  <section class="three_words_meny">
+
+  <button class="go-author">Author</button>
+  <button>Works</button>
+  <button>Pictures</button>
+
+  </section>
+
 </section>
 
 <section class="my_works">
 
-    <section class="panel">
-        <div class="zine_work"></div>
-        <button class="button" data-i18n="Zinedesign">Zine design</button>
-    </section>
+  <section class="panel panel_1">
+  <button class="button_1">Zine design</button>
+  <div class="zine_work">
+    <video class="panel_video" muted loop preload="none" playsinline>
+      <source src="videos/zine.mp4" type="video/mp4" />
+    </video>
+  </div>
+</section>
 
-    <section class="panel">
-        <div class="creative_website"></div>
-        <button class="button" data-i18n="Creativewebsite">Creative website for the festival</button>
-    </section>
+<section class="panel panel_2">
+  <button class="button_1">Creative website for the festival</button>
+  <div class="creative_website">
+    <video class="panel_video" muted loop preload="none" playsinline>
+      <source src="videos/creative.mp4" type="video/mp4" />
+    </video>
+  </div>
+</section>
 
-    <section class="panel">
-        <div class="posters"></div>
-        <button class="button" data-i18n="Posters">Posters</button>
-    </section>
+<section class="panel panel_3">
+  <button class="button_1">Posters</button>
+  <div class="posters">
+    <video class="panel_video" muted loop preload="none" playsinline>
+      <source src="../apfinmodel/images/00000-0220.mp4" type="video/mp4" />
+    </video>
+  </div>
+
+</section>
 
 </section>
 
@@ -43,20 +67,54 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
 
 <script>
-gsap.registerPlugin(ScrollTrigger);
+  gsap.registerPlugin(ScrollTrigger);
 
-gsap.to(".my_works", {
-    xPercent: -200,
+  gsap.to(".my_works", {
+    xPercent: -28.5,
     ease: "none",
     scrollTrigger: {
-    trigger: ".my_works",
-    pin: true,
-    scrub: 1,
-    snap: 1 / 2,
-    end: () => "+=" + document.querySelector(".my_works").offsetWidth
+      trigger: ".my_works",
+      pin: true,
+      scrub: 1,
+      snap: 1 / 2,
+      end: () => "+=" + document.querySelector(".my_works").offsetWidth
+      
     }
+  });
+
+   document.querySelector('.main_hi').addEventListener('click', function () {
+    window.location.href = 'index.html';
+  });
+
+  const panels = document.querySelectorAll(".panel");
+
+  panels.forEach(panel => {
+    const video = panel.querySelector(".panel_video");
+
+    panel.addEventListener("mouseenter", () => {
+      if (video) {
+        video.style.opacity = "1";
+        video.play();
+      }
+    });
+
+    panel.addEventListener("mouseleave", () => {
+      if (video) {
+        video.style.opacity = "0";
+        setTimeout(() => {
+          video.pause();
+          video.currentTime = 0;
+        }, 600); // подождать, пока исчезнет
+      }
+    });
+  });
+
+  document.querySelector('.go-author').addEventListener('click', () => {
+  window.location.href = 'author.html';
 });
+
 </script>
+
 
 </body>
 </html>
