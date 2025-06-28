@@ -10,7 +10,6 @@
   <title>NOT</title>
 </head>
 
-
 <body>
 
   <section class="background_v1">
@@ -103,6 +102,7 @@
     });
 
     // Language support
+
     const translations = {
       ru: {
         letsGo: "Поехали!",
@@ -114,7 +114,8 @@
       }
     };
 
-    let currentLang = 'en';
+    // Получаем язык из localStorage или по умолчанию 'en'
+    let currentLang = localStorage.getItem('siteLang') || 'en';
 
     const updateLanguage = () => {
       document.querySelectorAll('[data-i18n]').forEach(el => {
@@ -123,18 +124,21 @@
           el.textContent = translations[currentLang][key];
         }
       });
+      // Кнопка показывает язык, на который переключится
+      document.getElementById('langToggle').textContent = currentLang === 'ru' ? 'EN' : 'RU';
     };
 
     document.getElementById('langToggle').addEventListener('click', () => {
       currentLang = currentLang === 'ru' ? 'en' : 'ru';
+      localStorage.setItem('siteLang', currentLang);
       updateLanguage();
     });
 
-    updateLanguage(); // Initial language update
+    updateLanguage(); // Начальное обновление языка
 
     // Redirect on button click
     document.querySelector('[data-i18n="letsGo"]').addEventListener('click', () => {
-      window.location.href = 'works.html'; // Change to your desired page
+      window.location.href = 'works.html'; // или другая страница
     });
   </script>
   

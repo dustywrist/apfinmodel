@@ -84,6 +84,7 @@ body {
     flex-shrink: 0;
     border-radius: 1vw;
     background: rgba(190, 186, 186, 0.4);
+      border: 1px solid rgba(255, 255, 255, 0.3);
     box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25), 0px 4px 35px 0px rgba(0, 0, 0, 0.25);
     backdrop-filter: blur(32.29999923706055px);
     position: absolute;
@@ -150,6 +151,8 @@ body {
 .three_words_meny,
 .hi_to_hi {
   background: rgba(53, 52, 52, 0.60);
+       backdrop-filter: blur(100vw);
+         border: 1px solid rgba(190, 190, 190, 0.3);
   border: none;
   border-radius: 10px;
   padding: 0.5rem 1rem;
@@ -165,16 +168,26 @@ body {
   color: white;
   font-size: 1rem;
   cursor: pointer;
+   background-size: 2.3vw;
+      background-repeat: no-repeat;
+      background-position: center;
+      border: none;
+      cursor: pointer;
+    
+
   
 }
 
 .hi_to_hi {
-  padding: 0.8rem 0.8rem;
-background-image: url(../images/🌍.png);
-background-size: cover; 
-background-repeat: no-repeat; 
-background-position: center;
-background-size: 2.3vw;
+padding: 0.8rem 0.8rem;
+      background-size: 2.3vw;
+      background-repeat: no-repeat;
+      background-position: center;
+      border: none;
+      cursor: pointer;
+      width: 2vw;
+      height: 2vw;
+
 }
 
 .my_works {
@@ -186,6 +199,17 @@ background-size: 2.3vw;
   scroll-snap-type: x mandatory;
 }
 
+.main_hi {
+  width: 100%;  /* или конкретный размер, например 5vw */
+  height: 100%; /* или конкретный размер, например 5vw */
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  cursor: pointer;
+  padding: 0; /* если padding мешает */
+  border: none;
+  box-sizing: border-box;
+}
 .panel {
   scroll-snap-align: start;
   height: 100vh;
@@ -212,10 +236,11 @@ background-size: 2.3vw;
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
+  
 }
 
 .zine_work {
-  background-image: url(../images/zine_prew.png);
+  background-image: url(../images/book_prew_1.png);
 }
 
 .creative_website {
@@ -231,6 +256,8 @@ background-size: 2.3vw;
   bottom: 1vw;
   right: 1vw;
   background: rgba(53, 52, 52, 0.60);
+  backdrop-filter: blur(100vw);
+  
   color: white;
   border: none;
   padding: 1vw;
@@ -275,8 +302,6 @@ background-size: 2.3vw;
    top: 45%;
     left: 50%;
     transform: translate(-50%, -50%);
-    justify-content: center;
-    align-items: center;
     gap: 1vw;
 }
 
@@ -291,13 +316,12 @@ background-size: 2.3vw;
 }
 
 .photo_text {
-  background-image: url(../images/image\ 166.png);
-     background-size: cover; 
-    background-repeat: no-repeat; 
-    background-position: center;
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center;
       height: 13vw;
-    width: 50vw;
-}
+      width: 50vw;
+    }
       
     .media-wrapper {
       position: fixed;
@@ -332,6 +356,7 @@ background-size: 2.3vw;
       object-fit: cover;
       display: block;
       transition: transform 0.3s ease;
+    
     }
 
     @keyframes scroll {
@@ -377,6 +402,143 @@ background-size: 2.3vw;
   display: block;
 }
 
+
 .contacts_all {
-  
+  gap: 30vw;
+  display: flex;
+  justify-content: flex-start;
+
+
 }
+.contacts_1 {
+  display: flex;
+  flex-direction: row;
+  
+   align-items: flex-end; /* Выравнивание по нижней границе контейнера */
+
+  gap: 0.4vw;
+}
+
+.naming {
+font-family: "Regular";
+font-style: normal;
+font-weight: 400;
+font-size: 0.9vw;
+}
+
+.econt {
+  font-family: "Regular";
+font-style: normal;
+font-weight: 400;
+font-size: 1.5vw;
+}
+
+.contacts_2 {
+  display: flex;
+  flex-direction: row;
+   align-items: flex-end; /* Выравнивание по нижней границе контейнера */
+  gap: 0.6vw;
+}
+
+.inst, .tg {
+  display: inline-block;
+  width: 1.5vw;
+  height: 1.5vw;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+/* Индивидуальные изображения */
+.inst {
+  background-image: url('../images/instagram-round-svgrepo-com 1.svg');
+}
+
+.tg {
+  background-image: url('../images/telegram-svgrepo-com 1.svg');
+}
+
+
+.opisanie_proekta{
+  display: flex;
+  flex-direction: column;
+  width: 50vw;
+  height: fit-content;
+  position: relative;
+  top: 30%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+   font-family: "Regular", sans-serif;
+  gap: 1.5vw;
+}
+
+
+.basic_text_1 {
+  font-family: "SemiBold";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 2vw;
+  color: #ffffff;
+  line-height: 130%;
+  letter-spacing: 0.05vw;
+  text-align: left;
+}
+
+.mini_podpisi {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.mini_podpisi_nachinka {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  gap: 0.6vw;
+  color: #ffffff;
+}
+
+.curator {
+  font-size: 0.9vw;
+  font-weight: 400;
+  color: #ffffff;
+}
+
+.name_of_curator {
+  font-size: 1.5vw;
+  font-weight: 400;
+}
+
+.nachinka_book {
+  display: flex;
+  flex-direction: column;
+  width: 100vw;
+  margin: 0;
+  padding: 0;
+  top: 30%;
+  position: relative;
+  gap: 5vw;
+}
+
+
+
+.nachinka_book_photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* обрезка и масштабирование изображения */
+  display: block;
+}
+
+.opisanie_proekta_2{
+  display: flex;
+  flex-direction: column;
+  width: 50vw;
+  height: fit-content;
+  position: relative;
+  top: 10%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+   font-family: "Regular", sans-serif;
+  gap: 1.5vw;
+}
+
+  

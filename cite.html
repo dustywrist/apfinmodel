@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta property="og:title" content="NOT" />
+  <meta property="og:description" content="imaginary music site" />
+  <link rel="icon" type="image/x-icon" href="images/favicon.png" />
+  <link rel="stylesheet" href="stylesheets/style.css" />
+  <link rel="stylesheet" href="https://unpkg.com/flickity@2/dist/flickity.min.css" />
+  <title>NOT</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      height: 170vw;
+      overflow-x: hidden;
+      background-color: #ffffff;
+    }
+
+    .content-wrapper {
+      position: relative;
+      z-index: 1;
+      min-height: 100vh;
+    }
+
+    .slider-wrapper {
+      width: 100vw;
+      box-sizing: border-box;
+      position: relative;
+      top: 30%;
+    }
+
+    .carousel-cell {
+      width: 70vw;
+      margin-right: 0.1vw;
+      border-radius: 1vw;
+      overflow: hidden;
+    }
+
+    .carousel-cell img {
+      display: block;
+      width: 100%;
+      height: auto;
+      object-fit: cover;
+      opacity: 0.6;
+      transition: all 0.6s ease;
+      transform: scale(0.90);
+    }
+
+    .nachinka_cite_video_2 {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .carousel-cell.is-selected img {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    .nachinka_cite_all {
+      display: flex;
+      flex-direction: column;
+      gap: 4vw;
+      width: 100%;
+      height: auto;
+      position: relative;
+      top: 40%; /* Increased from 10% to move lower */
+    }
+
+    .opisanie_proekta_2 {
+      margin-top: 30vh; /* Added to move the section lower */
+    }
+
+    .flickity-button {
+      width: 4vw;
+      height: 4vw;
+      background: rgba(53, 52, 52, 0.60);
+      backdrop-filter: blur(100vw);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      border-radius: 1vw;
+      color: #fff;
+      cursor: pointer;
+      opacity: 0;
+      z-index: 10;
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      transition: all 0.3s ease;
+    }
+
+    .flickity-button:hover {
+      opacity: 1 !important;
+      background: rgba(0, 0, 0, 0.6);
+    }
+
+    .flickity-prev-next-button.previous {
+      left: 1vw;
+    }
+
+    .flickity-prev-next-button.next {
+      right: 1vw;
+    }
+
+    .slider-wrapper:hover .flickity-button {
+      opacity: 1;
+    }
+
+    .flickity-viewport {
+      box-sizing: content-box;
+      overflow: hidden;
+      position: relative;
+      height: 9vw;
+    }
+
+    .custom-dots {
+      text-align: center;
+      margin-top: 1.5vw;
+      user-select: none;
+    }
+
+    .custom-dots .dot {
+      width: 0.5vw;
+      height: 0.5vw;
+      background-color: rgba(0, 0, 0, 0.3);
+      border-radius: 50%;
+      display: inline-block;
+      margin: 0 0.1vw;
+      cursor: pointer;
+      border: none;
+      padding: 0;
+      transition: background-color 0.3s ease;
+    }
+
+    .custom-dots .dot.is-selected {
+      background-color: rgba(0, 0, 0, 0.8);
+    }
+
+    .nachinka_cite_video_1 video {
+      width: 100vw;
+      height: auto;
+      display: block;
+      object-fit: cover;
+      max-height: 100vh;
+    }
+
+    .clickable#overlay__project_click_bottom {
+      position: relative;
+      width: 100vw;
+      height: 20vh;
+      background: linear-gradient(transparent, rgba(0, 0, 0, 0.2));
+      cursor: pointer;
+      z-index: 10;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Размытый фон с works.html -->
+  <iframe id="blurred-bg" src="works.html" style="
+    position: fixed;
+    top: 0; left: 0; width: 100vw; height: 100vh;
+    pointer-events: none;
+    filter: blur(100px);
+    opacity: 0.5;
+    z-index: 0;
+    transform: scale(1.05);
+    user-select: none;
+  "></iframe>
+
+  <div id="black-overlay" style="
+    position: fixed;
+    top: 0; left: 0; width: 100vw; height: 100vh;
+    background: rgba(0, 0, 0, 0.3);
+    pointer-events: none;
+    z-index: 1;
+  "></div>
+
+<div class="content-wrapper">
+    <section class="main_menu">
+      <section class="hi_to_hi">
+        <button class="main_hi" id="langToggle" data-i18n="lang"></button>
+      </section>
+      <section class="three_words_meny">
+        <button class="go-author" data-i18n="author">Автор</button>
+        <button class="go-works" data-i18n="works">Работы</button>
+        <button class="go-pictures" data-i18n="pictures">Картины</button>
+      </section>
+    </section>
+
+    <section class="opisanie_proekta_2">
+      <div class="basic_text_1" data-i18n="projectDescription">
+        На веб-постере вы сможете познакомиться с автором проекта и посмотреть последние записанные сеты созданной компании.
+      </div>
+      <div class="mini_podpisi">
+        <div class="mini_podpisi_nachinka">
+          <p class="curator" data-i18n="curatorLabel">куратор:</p>
+          <p class="name_of_curator" data-i18n="curatorName">Дарья Зародина</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="nachinka_cite_all">
+      <section class="slider-wrapper">
+        <div class="main-carousel" data-flickity='{ "wrapAround": true, "autoPlay": 3000, "pauseAutoPlayOnHover": true, "contain": true, "pageDots": false, "cellAlign": "center" }'>
+          <div class="carousel-cell"><img src="images/screen_1.png" alt="Slider Image 1"></div>
+          <div class="carousel-cell"><img src="images/screen_2.png" alt="Slider Image 2"></div>
+          <div class="carousel-cell"><img src="images/screen_3.png" alt="Slider Image 3"></div>
+        </div>
+
+        <div class="custom-dots">
+          <button class="dot is-selected" data-index="0"></button>
+          <button class="dot" data-index="1"></button>
+          <button class="dot" data-index="2"></button>
+        </div>
+      </section>
+
+      <div class="nachinka_cite_video_2">
+        <video autoplay muted loop playsinline>
+          <source src="images/cite_video_2.mp4" type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
+      </div>
+
+      <div class="nachinka_cite_video_1">
+        <video autoplay muted loop playsinline>
+          <source src="images/cite_video_1.mp4" type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
+      </div>
+
+      <div class="clickable" id="overlay__project_click_bottom"></div>
+    </section>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+  <script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js"></script>
+
+  <script>
+    const translations = {
+      en: {
+        lang: "EN",
+        author: "Author",
+        works: "Works",
+        pictures: "Pictures",
+        projectDescription: "On the web poster you will be able to get acquainted with the author of the project and watch the latest recorded sets of the created company",
+        curatorLabel: "curator:",
+        curatorName: "Zarodina Daria"
+      },
+      ru: {
+        lang: "RU",
+        author: "Автор",
+        works: "Работы",
+        pictures: "Картины",
+        projectDescription: "На веб-постере вы сможете познакомиться с автором проекта и посмотреть последние записанные сеты созданной компании.",
+        curatorLabel: "куратор:",
+        curatorName: "Дарья Зародина"
+      }
+    };
+
+    let currentLang = localStorage.getItem('siteLang') || 'ru';
+
+    const updateLanguage = () => {
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (translations[currentLang][key]) {
+          el.textContent = translations[currentLang][key];
+        }
+      });
+      document.getElementById('langToggle').textContent = currentLang === 'ru' ? '' : '';
+    };
+
+    document.getElementById('langToggle')?.addEventListener('click', () => {
+      currentLang = currentLang === 'ru' ? 'en' : 'ru';
+      localStorage.setItem('siteLang', currentLang);
+      updateLanguage();
+    });
+
+    updateLanguage();
+
+        document.querySelectorAll('.main_hi').forEach(btn => {
+      btn.addEventListener('click', () => {
+        window.location.href = 'index.html';
+      });
+    });
+
+    document.querySelector('.go-author')?.addEventListener('click', () => {
+      window.location.href = 'author.html';
+    });
+
+    document.querySelector('.go-pictures')?.addEventListener('click', () => {
+      window.location.href = 'pictures.html';
+    });
+
+    document.querySelector('.go-works')?.addEventListener('click', () => {
+      window.location.href = 'works.html';
+    });
+
+    // Инициализируем Flickity
+    const flkty = new Flickity('.main-carousel', {
+      wrapAround: true,
+      autoPlay: 3000,
+      pauseAutoPlayOnHover: true,
+      contain: true,
+      pageDots: false,
+      cellAlign: 'center',
+      selectedAttraction: 0.05,
+      friction: 0.6
+    });
+
+    // Синхронизация точек с слайдером
+    const dots = document.querySelectorAll('.custom-dots .dot');
+
+    function updateDots(index) {
+      dots.forEach(dot => dot.classList.remove('is-selected'));
+      if (dots[index]) {
+        dots[index].classList.add('is-selected');
+      }
+    }
+
+    flkty.on('change', index => {
+      updateDots(index);
+    });
+
+    dots.forEach(dot => {
+      dot.addEventListener('click', () => {
+        const index = parseInt(dot.getAttribute('data-index'));
+        flkty.select(index);
+      });
+    });
+
+    // Кнопка с меняющимся фоном
+    const btn = document.querySelector('.main_hi');
+    const images = [
+      'images/💅.png',
+      'images/🤵‍♀️.png',
+      'images/🖼.png',
+      'images/📚.png'
+    ];
+    let currentIndex = 0;
+
+    function updateButtonBackground() {
+      btn.style.backgroundImage = `url(${images[currentIndex]})`;
+    }
+
+    updateButtonBackground();
+
+    gsap.fromTo('.main_hi',
+      { opacity: 0 },
+      { opacity: 1, duration: 1, ease: "power2.out" }
+    );
+
+    // Плавное появление элементов по скроллу
+    const animatedElements = document.querySelectorAll(
+      'body domain .content-wrapper > section:not(.main_menu), .nachinka_cite_all > *, .nachinka_cite_video_1, .nachinka_cite_video_2'
+    );
+
+    animatedElements.forEach(elem => {
+      gsap.from(elem, {
+        opacity: 0,
+        y: 50,
+        duration: 1,
+        ease: "power2.out",
+        scrollTrigger: {
+          trigger: elem,
+          start: "top 85%",
+          toggleActions: "play none none none"
+        }
+      });
+    });
+
+    // Переход на works.html
+    let isTransitioning = false;
+
+    function startTransition() {
+      if (isTransitioning) return; // Предотвращаем множественные запуски
+      isTransitioning = true;
+
+      // Отключаем прокрутку
+      document.body.style.overflow = 'hidden';
+
+      // Анимация: уводим контент вверх и показываем works.html
+      gsap.fromTo('.main_hi', 
+  { opacity: 0 },      // начальное состояние — прозрачность 0
+  { opacity: 1,        // конечное состояние — прозрачность 1
+    duration: 1,
+    ease: "power2.out"
+  }
+);
+
+      gsap.to('.content-wrapper', {
+        y: '-100vh',
+        duration: 1.5,
+        ease: 'power2.inOut',
+        onComplete: () => {
+          window.location.href = 'works.html';
+        }
+      });
+
+      gsap.to('#blurred-bg', {
+        filter: 'blur(0px)',
+        opacity: 1,
+        duration: 1.5,
+        ease: 'power2.inOut'
+      });
+
+      gsap.to('#black-overlay', {
+        opacity: 0,
+        duration: 1.5,
+        ease: 'power2.inOut'
+      });
+    }
+
+    // Отслеживание скролла
+    window.addEventListener('scroll', () => {
+      const scrollTop = window.scrollY || window.pageYOffset;
+      const windowHeight = window.innerHeight;
+      const docHeight = document.documentElement.scrollHeight;
+      const buffer = windowHeight * 0.1;
+
+      if (!isTransitioning && scrollTop + windowHeight + buffer >= docHeight) {
+        startTransition();
+      }
+    });
+
+    // Клик по триггеру для немедленного запуска перехода
+    document.getElementById('overlay__project_click_bottom').addEventListener('click', startTransition);
+  </script>
+</body>
+</html>

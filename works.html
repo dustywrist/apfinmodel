@@ -10,23 +10,27 @@
   <title>NOT</title>
 </head>
 
-
+<style>
+  body {
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    background-color: #ffffff;
+    width: 148vw;
+  }
+</style>
 <body>
 
 <section class="main_menu">
 
-    <section class="hi_to_hi">
-
-  <button class="main_hi"></button>
-
+  <section class="hi_to_hi">
+    <button class="main_hi" id="langToggle" data-i18n="lang"></button>
   </section>
 
   <section class="three_words_meny">
-
-  <button class="go-author">Author</button>
-  <button>Works</button>
-  <button>Pictures</button>
-
+    <button class="go-author" data-i18n="author">Author</button>
+    <button class="go-works" data-i18n="works">Works</button>
+    <button class="go-pictures" data-i18n="pictures">Pictures</button>
   </section>
 
 </section>
@@ -34,34 +38,34 @@
 <section class="my_works">
 
   <section class="panel panel_1">
-  <button class="button_1">Zine design</button>
-  <div class="zine_work">
-    <video class="panel_video" muted loop preload="none" playsinline>
-      <source src="videos/zine.mp4" type="video/mp4" />
-    </video>
-  </div>
+    <button class="button_1" data-i18n="zineDesign">Zine design</button>
+    <div class="zine_work">
+      <video class="panel_video" muted loop preload="none" playsinline>
+        <source src="../apfinmodel/images/book_prew.mp4" type="video/mp4" />
+      </video>
+    </div>
+  </section>
+
+  <section class="panel panel_2">
+    <button class="button_1" data-i18n="creativeWebsite">Creative website for the festival</button>
+    <div class="creative_website">
+      <video class="panel_video" muted loop preload="none" playsinline>
+        <source src="../apfinmodel/images/cite_prew_video.mp4" type="video/mp4" />
+      </video>
+    </div>
+  </section>
+
+  <section class="panel panel_3">
+    <button class="button_1" data-i18n="posters">Posters</button>
+    <div class="posters">
+      <video class="panel_video" muted loop preload="none" playsinline>
+        <source src="../apfinmodel/images/00000-0220.mp4" type="video/mp4" />
+      </video>
+    </div>
+  </section>
+
 </section>
 
-<section class="panel panel_2">
-  <button class="button_1">Creative website for the festival</button>
-  <div class="creative_website">
-    <video class="panel_video" muted loop preload="none" playsinline>
-      <source src="videos/creative.mp4" type="video/mp4" />
-    </video>
-  </div>
-</section>
-
-<section class="panel panel_3">
-  <button class="button_1">Posters</button>
-  <div class="posters">
-    <video class="panel_video" muted loop preload="none" playsinline>
-      <source src="../apfinmodel/images/00000-0220.mp4" type="video/mp4" />
-    </video>
-  </div>
-
-</section>
-
-</section>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
@@ -78,14 +82,44 @@
       scrub: 1,
       snap: 1 / 2,
       end: () => "+=" + document.querySelector(".my_works").offsetWidth
-      
     }
   });
 
-   document.querySelector('.main_hi').addEventListener('click', function () {
+  // Кнопка с меняющимися изображениями
+  const btn = document.querySelector('.main_hi');
+  const images = [
+    'images/🌍.png',
+    'images/🤵‍♀️.png',
+    'images/🖼.png',
+    'images/📚.png'
+  ];
+  let currentIndex = 0;
+
+  function updateButtonBackground() {
+    btn.style.backgroundImage = `url(${images[currentIndex]})`;
+  }
+
+  updateButtonBackground();
+
+  btn.addEventListener('click', () => {
+    currentIndex = (currentIndex + 1) % images.length;
+    updateButtonBackground();
+  });
+
+  // Переходы по кнопкам в меню
+  btn.addEventListener('click', () => {
     window.location.href = 'index.html';
   });
 
+  document.querySelector('.go-author')?.addEventListener('click', () => {
+    window.location.href = 'author.html';
+  });
+
+  document.querySelector('.go-pictures')?.addEventListener('click', () => {
+    window.location.href = 'pictures.html';
+  });
+
+  // Наведение: воспроизведение видео
   const panels = document.querySelectorAll(".panel");
 
   panels.forEach(panel => {
@@ -104,17 +138,86 @@
         setTimeout(() => {
           video.pause();
           video.currentTime = 0;
-        }, 600); // подождать, пока исчезнет
+        }, 600);
       }
     });
   });
 
-  document.querySelector('.go-author').addEventListener('click', () => {
-  window.location.href = 'author.html';
-});
+  document.querySelector('.panel_1')?.addEventListener('click', () => {
+    window.location.href = 'zine.html';
+  });
+
+  document.querySelector('.panel_2')?.addEventListener('click', () => {
+    window.location.href = 'cite.html';
+  });
+
+  document.querySelector('.panel_3')?.addEventListener('click', () => {
+    window.location.href = 'posters.html';
+  });
+
+  // --- Языковая логика ---
+  const translations = {
+    ru: {
+      lang: "EN",
+      author: "Автор",
+      works: "Работы",
+      pictures: "Картинки",
+      zineDesign: "Дизайн журнала",
+      creativeWebsite: "Креативный сайт для фестиваля",
+      posters: "Плакаты"
+    },
+    en: {
+      lang: "RU",
+      author: "Author",
+      works: "Works",
+      pictures: "Pictures",
+      zineDesign: "Zine design",
+      creativeWebsite: "Creative website for the festival",
+      posters: "Posters"
+    }
+  };
+
+  window.addEventListener('load', () => {
+    gsap.to('#page-transition', {
+      opacity: 0,
+      duration: 1,
+      ease: 'power2.out',
+      onComplete: () => {
+        document.getElementById('page-transition').style.display = 'none';
+      }
+    });
+  });
+
+  let currentLang = localStorage.getItem('siteLang') || 'en';
+
+  const updateLanguage = () => {
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+      const key = el.getAttribute('data-i18n');
+      if (translations[currentLang][key]) {
+        el.textContent = translations[currentLang][key];
+      }
+    });
+    document.getElementById('langToggle').textContent = currentLang === 'ru' ? '' : '';
+  };
+
+  document.getElementById('langToggle').addEventListener('click', () => {
+    currentLang = currentLang === 'ru' ? 'en' : 'ru';
+    localStorage.setItem('siteLang', currentLang);
+    updateLanguage();
+  });
+  updateLanguage();
+
+gsap.fromTo('.main_hi', 
+  { opacity: 0 },
+  { opacity: 1,
+    duration: 1,
+    ease: "power2.out"
+  }
+);
+
+
 
 </script>
-
 
 </body>
 </html>

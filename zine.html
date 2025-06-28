@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta property="og:title" content="NOT" />
+  <meta property="og:description" content="imaginary music site" />
+  <link rel="icon" type="image/x-icon" href="images/favicon.png" />
+  <link rel="stylesheet" href="stylesheets/style.css" />
+  <link rel="stylesheet" href="https://unpkg.com/flickity@2/dist/flickity.min.css" />
+  <title>NOT</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      min-height: 200vh; /* Increased to ensure scrollability with lowered content */
+      overflow-x: hidden;
+      background-color: #ffffff;
+    }
+
+    .content-wrapper {
+      position: relative;
+      z-index: 1;
+      min-height: 100vh;
+    }
+
+    .wrap_without_text_below.mt_small {
+      width: 100vw;
+      padding: 0 0vw 4vw;
+      box-sizing: border-box;
+      position: relative;
+      user-select: none;
+      touch-action: pan-y;
+      top: 70%; /* Increased from 50% to move lower */
+    }
+
+    .slider-container {
+      width: 100%;
+      margin: 0 auto;
+      overflow: visible;
+      position: relative;
+    }
+
+    .main-slider {
+      height: 47.5vw;
+      margin-bottom: 1vw;
+      position: relative;
+    }
+
+    .main-slider .flickity-viewport {
+      padding: 4vw 0;
+      box-sizing: content-box;
+    }
+
+    .flickity-viewport {
+      overflow: hidden;
+      position: relative;
+      height: 9vw;
+    }
+
+    .carousel-cell {
+      margin-right: 3vw;
+      flex-shrink: 0;
+    }
+
+    .carousel-cell:last-child {
+      margin-right: 0;
+    }
+
+    .main-slider img {
+      border-radius: 1vw;
+      width: 37.5vw;
+      object-fit: contain;
+      user-select: none;
+      cursor: default;
+      transition: transform 0.3s ease, opacity 0.3s ease;
+      transform-style: preserve-3d;
+      opacity: 0.6;
+      transform-origin: center center;
+      box-shadow: 0 0 2vw rgba(0, 0, 0, 0.5);
+    }
+
+    .main-slider .is-selected img {
+      opacity: 1;
+      transform: rotateY(0deg) scale(1);
+      z-index: 10;
+    }
+
+    .main-slider .carousel-cell.is-prev img,
+    .main-slider .carousel-cell.is-next img {
+      transform: rotateY(40deg) scale(0.8);
+      opacity: 0.8;
+      z-index: 5;
+    }
+
+    .main-slider .carousel-cell.is-prev-prev img {
+      transform: rotateY(60deg) scale(0.6);
+      opacity: 0.5;
+      z-index: 1;
+    }
+
+    .main-slider .carousel-cell.is-next-next img {
+      transform: rotateY(-60deg) scale(0.6);
+      opacity: 0.5;
+      z-index: 1;
+    }
+
+    .flickity-prev-next-button {
+      width: 4vw;
+      height: 4vw;
+      background: rgba(53, 52, 52, 0.60);
+      backdrop-filter: blur(100vw);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      border-radius: 1vw;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-size: 0;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      opacity: 0;
+      pointer-events: none;
+      z-index: 10;
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+
+    .flickity-prev-next-button.previous {
+      left: 1vw;
+    }
+
+    .flickity-prev-next-button.next {
+      right: 1vw;
+    }
+
+    .slider-container.main-slider:hover .flickity-prev-next-button {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .flickity-prev-next-button:hover {
+      opacity: 1 !important;
+      pointer-events: auto;
+      background: rgba(53, 52, 52, 0.60);
+    }
+
+    .thumbnail-slider {
+      height: 9vw;
+      overflow: visible;
+      position: relative;
+      z-index: 1;
+    }
+
+    .thumbnail-slider .flickity-viewport {
+      overflow: visible !important;
+    }
+
+    .thumbnail-slider .carousel-cell {
+      margin-right: 0.7vw;
+      flex-shrink: 0;
+    }
+
+    .thumbnail-slider .carousel-cell:last-child {
+      margin-right: 0;
+    }
+
+    .thumbnail-slider img {
+      height: 5vw;
+      border-radius: 0.2vw;
+      box-shadow: 0 0 0.3vw rgba(0, 0, 0, 0.1);
+      cursor: pointer;
+      opacity: 0.6;
+      transition: opacity 0.3s ease, transform 0.3s ease;
+      user-select: none;
+      -webkit-user-drag: none;
+    }
+
+    .thumbnail-slider img.is-selected,
+    .thumbnail-slider img:hover {
+      opacity: 1;
+      transform: scale(1.1);
+      box-shadow: 0 0 0.8vw rgba(0, 0, 0, 0.25);
+      z-index: 10;
+      position: relative;
+    }
+
+    .clickable#overlay__project_click_bottom {
+      position: relative;
+      width: 100vw;
+      height: 20vh;
+      background: linear-gradient(transparent, rgba(0, 0, 0, 0.2));
+      cursor: pointer;
+      z-index: 10;
+    }
+
+    .opisanie_proekta {
+      margin-top: 30vh; /* Increased to move the section lower */
+    }
+
+    .nachinka_book_photo {
+      margin-top: 0vh; /* Added to move the book photo lower */
+    }
+  </style>
+</head>
+<body>
+  <iframe id="blurred-bg" src="works.html" style="
+    position: fixed;
+    top: 0; left: 0; width: 100vw; height: 100vh;
+    pointer-events: none;
+    filter: blur(100px);
+    opacity: 0.5;
+    z-index: 0;
+    transform: scale(1.05);
+    user-select: none;
+  "></iframe>
+
+  <div id="black-overlay" style="
+    position: fixed;
+    top: 0; left: 0; width: 100vw; height: 100vh;
+    background: rgba(0, 0, 0, 0.3);
+    pointer-events: none;
+    z-index: 1;
+  "></div>
+
+  <div class="content-wrapper">
+    <!-- Hover zones -->
+    <div class="hover-left"></div>
+    <div class="hover-right"></div>
+
+    <section class="main_menu">
+      <section class="hi_to_hi">
+        <button class="main_hi" id="langToggle"></button>
+      </section>
+      <section class="three_words_meny">
+        <button class="go-author" data-i18n="author">Author</button>
+        <button class="go-works" data-i18n="works">Works</button>
+        <button class="go-pictures" data-i18n="pictures">Pictures</button>
+      </section>
+    </section>
+
+    <section class="opisanie_proekta">
+      <div class="basic_text_1" data-i18n="projectDescription">
+        Zine has the format of a personal diary, and the main character is a DJ, a chronicler of NOT nightlife. His diary is not just notes, but a visual chronicle of everything that surrounded him.
+      </div>
+      <div class="mini_podpisi">
+        <div class="mini_podpisi_nachinka">
+          <p class="curator" data-i18n="curatorLabel">curator:</p>
+          <div class="name_of_curator" data-i18n="curatorLabel_2">Violetta Lukyanova</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="nachinka_book">
+      <section class="nachinka_book_photo">
+        <img src="images/book_nachinka_1.png" alt="Описание изображения" />
+      </section>
+
+      <section class="wrap_without_text_below mt_small">
+        <div class="slider-container main-slider" data-flickity='{ "cellAlign": "center", "contain": true, "pageDots": false, "prevNextButtons": true, "draggable": true, "wrapAround": true, "selectedAttraction": 0.05, "friction": 0.6, "autoPlay": 3000 }'>
+          <div class="carousel-cell"><img src="images/book_photo_1.png" class="is-selected" /></div>
+          <div class="carousel-cell"><img src="images/book_photo_2.png" /></div>
+          <div class="carousel-cell"><img src="images/book_photo_3.png" /></div>
+          <div class="carousel-cell"><img src="images/book_photo_4.png" /></div>
+          <div class="carousel-cell"><img src="images/book_photo_5.png" /></div>
+          <div class="carousel-cell"><img src="images/book_photo_6.png" /></div>
+          <div class="carousel-cell"><img src="images/book_photo_7.png" /></div>
+          <div class="carousel-cell"><img src="images/book_photo_8.png" /></div>
+          <div class="carousel-cell"><img src="images/book_photo_9.png" /></div>
+          <div class="carousel-cell"><img src="images/book_photo_10.png" /></div>
+          <div class="carousel-cell"><img src="images/book_photo_11.png" /></div>
+          <div class="carousel-cell"><img src="images/book_photo_12.png" /></div>
+          <div class="carousel-cell"><img src="images/book_photo_13.png" /></div>
+          <div class="carousel-cell"><img src="images/book_photo_14.png" /></div>
+          <div class="carousel-cell"><img src="images/book_photo_15.png" /></div>
+          <div class="carousel-cell"><img src="images/book_photo_16.png" /></div>
+          <div class="carousel-cell"><img src="images/book_photo_17.png" /></div>
+          <div class="carousel-cell"><img src="images/book_photo_18.png" /></div>
+          <div class="carousel-cell"><img src="images/book_photo_19.png" /></div>
+          <div class="carousel-cell"><img src="images/book_photo_20.png" /></div>
+          <div class="carousel-cell"><img src="images/book_photo_21.png" /></div>
+          <div class="carousel-cell"><img src="images/book_photo_22.png" /></div>
+          <div class="carousel-cell"><img src="images/book_photo_23.png" /></div>
+        </div>
+
+        <div class="slider-container thumbnail-slider in_overlay" data-flickity='{ "asNavFor": ".main-slider", "contain": true, "pageDots": false, "prevNextButtons": false, "cellAlign": "left", "draggable": true }'>
+          <div class="carousel-cell"><img src="images/book_photo_1.png" class="is-selected" /></div>
+          <div class="carousel-cell"><img src="images/book_photo_2.png" /></div>
+          <div class="carousel-cell"><img src="images/book_photo_3.png" /></div>
+          <div class="carousel-cell"><img src="images/book_photo_4.png" /></div>
+          <div class="carousel-cell"><img src="images/book_photo_5.png" /></div>
+          <div class="carousel-cell"><img src="images/book_photo_6.png" /></div>
+          <div class="carousel-cell"><img src="images/book_photo_7.png" /></div>
+          <div class="carousel-cell"><img src="images/book_photo_8.png" /></div>
+          <div class="carousel-cell"><img src="images/book_photo_9.png" /></div>
+          <div class="carousel-cell"><img src="images/book_photo_10.png" /></div>
+          <div class="carousel-cell"><img src="images/book_photo_11.png" /></div>
+          <div class="carousel-cell"><img src="images/book_photo_12.png" /></div>
+          <div class="carousel-cell"><img src="images/book_photo_13.png" /></div>
+          <div class="carousel-cell"><img src="images/book_photo_14.png" /></div>
+          <div class="carousel-cell"><img src="images/book_photo_15.png" /></div>
+          <div class="carousel-cell"><img src="images/book_photo_16.png" /></div>
+          <div class="carousel-cell"><img src="images/book_photo_17.png" /></div>
+          <div class="carousel-cell"><img src="images/book_photo_18.png" /></div>
+          <div class="carousel-cell"><img src="images/book_photo_19.png" /></div>
+          <div class="carousel-cell"><img src="images/book_photo_20.png" /></div>
+          <div class="carousel-cell"><img src="images/book_photo_21.png" /></div>
+          <div class="carousel-cell"><img src="images/book_photo_22.png" /></div>
+          <div class="carousel-cell"><img src="images/book_photo_23.png" /></div>
+        </div>
+      </section>
+
+      <div class="clickable" id="overlay__project_click_bottom"></div>
+    </section>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+  <script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js"></script>
+  <script>
+    // Инициализация Flickity
+
+        const btn = document.querySelector('.main_hi');
+    const images = [
+      'images/📚.png'
+    ];
+    let currentIndex = 0;
+
+    function updateButtonBackground() {
+      btn.style.backgroundImage = `url(${images[currentIndex]})`;
+    }
+
+    updateButtonBackground();
+
+    const mainSlider = new Flickity('.main-slider', {
+      cellAlign: 'center',
+      contain: true,
+      pageDots: false,
+      prevNextButtons: true,
+      draggable: true,
+      wrapAround: true,
+      selectedAttraction: 0.05,
+      friction: 0.6,
+      autoPlay: 3000,
+    });
+
+    const thumbnailSlider = new Flickity('.thumbnail-slider', {
+      asNavFor: '.main-slider',
+      contain: true,
+      pageDots: false,
+      prevNextButtons: false,
+      cellAlign: 'left',
+      draggable: true,
+    });
+
+    function updateNeighborClasses() {
+      const cells = mainSlider.getCellElements();
+      cells.forEach(cell => {
+        cell.classList.remove('is-prev', 'is-next', 'is-prev-prev', 'is-next-next');
+      });
+
+      let selectedIndex = mainSlider.selectedIndex;
+      let prevIndex = selectedIndex - 1 < 0 ? cells.length - 1 : selectedIndex - 1;
+      let nextIndex = (selectedIndex + 1) % cells.length;
+      let prevPrevIndex = selectedIndex - 2 < 0 ? cells.length + (selectedIndex - 2) : selectedIndex - 2;
+      let nextNextIndex = (selectedIndex + 2) % cells.length;
+
+      cells[prevIndex].classList.add('is-prev');
+      cells[nextIndex].classList.add('is-next');
+      cells[prevPrevIndex].classList.add('is-prev-prev');
+      cells[nextNextIndex].classList.add('is-next-next');
+    }
+
+    mainSlider.on('select', updateNeighborClasses);
+    mainSlider.on('ready', () => {
+      updateNeighborClasses();
+    });
+
+    // GSAP + ScrollTrigger анимации
+    gsap.registerPlugin(ScrollTrigger);
+
+    // Анимация кнопки .main_hi
+    gsap.fromTo('.main_hi', 
+      { opacity: 0 },
+      { opacity: 1, duration: 1, ease: "power2.out" }
+    );
+
+    // Описание проекта
+    gsap.from('.opisanie_proekta > div', {
+      scrollTrigger: {
+        trigger: '.opisanie_proekta',
+        start: 'top 80%',
+      },
+      opacity: 0,
+      y: 30,
+      stagger: 0.2,
+      duration: 0.8,
+      ease: "power2.out"
+    });
+
+    // Фото книги
+    gsap.from('.nachinka_book_photo img', {
+      scrollTrigger: {
+        trigger: '.nachinka_book_photo',
+        start: 'top 80%',
+      },
+      opacity: 0,
+      scale: 0.9,
+      duration: 0.8,
+      ease: "power3.out"
+    });
+
+    // Основной слайдер
+    gsap.from('.main-slider .carousel-cell', {
+      scrollTrigger: {
+        trigger: '.main-slider',
+        start: 'top 85%',
+      },
+      opacity: 0,
+      y: 50,
+      stagger: 0.05,
+      duration: 0.6,
+      ease: "power3.out"
+    });
+
+    // Миниатюры
+    gsap.from('.thumbnail-slider .carousel-cell', {
+      scrollTrigger: {
+        trigger: '.thumbnail-slider',
+        start: 'top 85%',
+      },
+      opacity: 0,
+      y: 30,
+      stagger: 0.04,
+      duration: 0.6,
+      ease: "power2.out"
+    });
+
+    // Переходы по кнопкам в меню
+    document.querySelectorAll('.main_hi').forEach(btn => {
+      btn.addEventListener('click', () => {
+        window.location.href = 'index.html';
+      });
+    });
+
+    document.querySelector('.go-author')?.addEventListener('click', () => {
+      window.location.href = 'author.html';
+    });
+
+    document.querySelector('.go-pictures')?.addEventListener('click', () => {
+      window.location.href = 'pictures.html';
+    });
+
+    document.querySelector('.go-works')?.addEventListener('click', () => {
+      window.location.href = 'works.html';
+    });
+
+    // Переключение языка
+    const translations = {
+      en: {
+        author: "Author",
+        works: "Works",
+        pictures: "Pictures",
+        projectDescription: "Zine has the format of a personal diary, and the main character is a DJ, a chronicler of NOT nightlife. His diary is not just notes, but a visual chronicle of everything that surrounded him.",
+        curatorLabel: "curator:",
+        curatorLabel_2: "Violetta Lukyanova"
+      },
+      ru: {
+        author: "Автор",
+        works: "Работы",
+        pictures: "Картины",
+        projectDescription: "Зин имеет формат личного дневника, а главный герой — диджей, хроникёр ночной жизни NOT. БЕго дневник — не просто записи, а визуальная хроника всего, что его окружало.",
+        curatorLabel: "куратор:",
+        curatorLabel_2: "Виолетта Лукьянова"
+      }
+    };
+
+    let currentLang = localStorage.getItem('siteLang') || 'en';
+
+    const updateLanguage = () => {
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (translations[currentLang][key]) {
+          el.textContent = translations[currentLang][key];
+        }
+      });
+      document.getElementById('langToggle').textContent = currentLang === 'ru' ? '' : '';
+    };
+
+    document.getElementById('langToggle')?.addEventListener('click', () => {
+      currentLang = currentLang === 'ru' ? 'en' : 'ru';
+      localStorage.setItem('siteLang', currentLang);
+      updateLanguage();
+    });
+
+    updateLanguage();
+
+    // Переход на works.html с анимацией
+    let isTransitioning = false;
+
+    function startTransition() {
+      if (isTransitioning) return; // Предотвращаем множественные запуски
+      isTransitioning = true;
+
+      // Отключаем прокрутку
+      document.body.style.overflow = 'hidden';
+
+      // Анимация: уводим контент вверх и показываем works.html
+      gsap.to('.content-wrapper', {
+        y: '-100vh',
+        duration: 1.5,
+        ease: 'power2.inOut',
+        onComplete: () => {
+          window.location.href = 'works.html';
+        }
+      });
+
+      gsap.to('#blurred-bg', {
+        filter: 'blur(0px)',
+        opacity: 1,
+        duration: 1.5,
+        ease: 'power2.inOut'
+      });
+
+      gsap.to('#black-overlay', {
+        opacity: 0,
+        duration: 1.5,
+        ease: 'power2.inOut'
+      });
+    }
+
+    // Отслеживание скролла
+    window.addEventListener('scroll', () => {
+      const scrollTop = window.scrollY || document.documentElement.scrollTop;
+      const windowHeight = window.innerHeight || document.documentElement.clientHeight;
+      const docHeight = document.documentElement.scrollHeight;
+      const buffer = windowHeight * 0.1; // Буфер 10vh
+
+      if (!isTransitioning && scrollTop + windowHeight + buffer >= docHeight) {
+        startTransition();
+      }
+    });
+
+    gsap.fromTo('.main_hi', 
+  { opacity: 0 },      // начальное состояние — прозрачность 0
+  { opacity: 1,        // конечное состояние — прозрачность 1
+    duration: 1,
+    ease: "power2.out"
+  }
+);
+
+    // Клик по триггеру для немедленного запуска перехода
+    document.getElementById('overlay__project_click_bottom').addEventListener('click', startTransition);
+  </script>
+</body>
+</html>

@@ -9,161 +9,232 @@
   <link rel="stylesheet" href="stylesheets/style.css" />
   <title>NOT</title>
 </head>
-
 <body>
 
   <section class="main_menu">
-
     <section class="hi_to_hi">
+      <button class="main_hi"></button>
+    </section>
 
-  <button class="main_hi"></button>
-
+    <section class="three_words_meny">
+      <button class="go-author">Author</button>
+      <button class="go-works">Works</button>
+      <button class="go-pictures">Pictures</button>
+    </section>
   </section>
-
-  <section class="three_words_meny">
-
-  <button class="go-author">Author</button>
-  <button>Works</button>
-  <button>Pictures</button>
-
-  </section>
-
-</section>
-
-
 
   <div class="about_me">
-
-
-    <div class="photo_text">
-  
- 
-    </div>
-
+    <div class="photo_text"></div>
 
     <div class="description">
-
-      <p>I have been doing design for about a year now. I know how to work with interfaces and branding. I like to work in a team and strive to become a part of it.</p>
-
+      <p id="description-text">I have been doing design for about a year now. I know how to work with interfaces and branding. I like to work in a team and strive to become a part of it.</p>
     </div>
-
 
     <div class="contacts_all">
-
-    <div class="contacts_1">
-
-    <p>e-mail:</p>
-    <p>navorot@gmail.com</p>
-
+      <div class="contacts_1">
+        <p class="naming">e-mail:</p>
+        <p class="econt">navorot@gmail.com</p>
+      </div>
+      <div class="contacts_2">
+        <a href="https://instagram.com/твоя_страница" target="_blank" class="inst"></a>
+        <a href="https://t.me/navrotnavorot" target="_blank" class="tg"></a>
+      </div>
     </div>
-
-     <div class="contacts_2">
-
-      <div class="inst"></div>
-      <div class="tg"></div>
-
-
-
-    </div>
-
-
-
-    </div>
-
-
-
-
   </div>
 
   <div class="media-wrapper">
     <div class="scroller" id="scroller">
-      <!-- Repeat media items -->
-      <div class="media-container"><img src="../apfinmodel/images/telegram-cloud-photo-size-2-5224202914262805102-y 1.png" /></div>
-      <div class="media-container"><video src="../apfinmodel/images/2025-06-04 00.55.28.mp4" autoplay loop muted></video></div>
-      <div class="media-container"><img src="../apfinmodel/images/telegram-cloud-photo-size-2-5303502110924600922-y 1.png" /></div>
-      <div class="media-container"><img src="../apfinmodel/images/Rectangle.png" /></div>
-      <div class="media-container"><video src="../apfinmodel/images/2025-06-04 00.55.42.mp4" autoplay loop muted></video></div>
-      <!-- Duplicate for seamless scroll -->
-       <div class="media-container"><img src="../apfinmodel/images/telegram-cloud-photo-size-2-5224202914262805102-y 1.png" /></div>
-      <div class="media-container"><video src="../apfinmodel/images/2025-06-04 00.55.28.mp4" autoplay loop muted></video></div>
-      <div class="media-container"><img src="../apfinmodel/images/telegram-cloud-photo-size-2-5303502110924600922-y 1.png" /></div>
-      <div class="media-container"><img src="../apfinmodel/images/Rectangle.png" /></div>
-      <div class="media-container"><video src="../apfinmodel/images/2025-06-04 00.55.42.mp4" autoplay loop muted></video></div>
-
+      <!-- Мультимедиа: трижды продублированы -->
+      <!-- Один блок: повторяется три раза для бесконечного скролла -->
+      <template id="media-template">
           <div class="media-container"><img src="../apfinmodel/images/telegram-cloud-photo-size-2-5224202914262805102-y 1.png" /></div>
-      <div class="media-container"><video src="../apfinmodel/images/2025-06-04 00.55.28.mp4" autoplay loop muted></video></div>
-      <div class="media-container"><img src="../apfinmodel/images/telegram-cloud-photo-size-2-5303502110924600922-y 1.png" /></div>
-      <div class="media-container"><img src="../apfinmodel/images/Rectangle.png" /></div>
-      <div class="media-container"><video src="../apfinmodel/images/2025-06-04 00.55.42.mp4" autoplay loop muted></video></div>
+          <div class="media-container"><img src="../apfinmodel/images/screen_1_5.png" /></div>
+          <div class="media-container"><img src="../apfinmodel/images/2025-06-04 00.55.54.jpg" /></div>
+          <div class="media-container"><img src="../apfinmodel/images/2025-06-29 01.46.14.jpg" /></div>
+          <div class="media-container"><img src="../apfinmodel/images/pngwing.com (6) 2.png" /></div>
+          <div class="media-container"><img src="../apfinmodel/images/2025-06-29 01.47.12.jpg" /></div>
+          <div class="media-container"><video src="../apfinmodel/images/2025-06-04 00.55.28.mp4" autoplay loop muted></video></div>
+          <div class="media-container"><img src="../apfinmodel/images/telegram-cloud-photo-size-2-5303502110924600922-y 1.png" /></div>
+          <div class="media-container"><img src="../apfinmodel/images/shristcompose.png" /></div>
+          <div class="media-container"><img src="../apfinmodel/images/tgphoto.jpg" /></div>
+          <div class="media-container"><img src="../apfinmodel/images/screen_1_4.png" /></div>
+          <div class="media-container"><video src="../apfinmodel/images/2025-06-04 00.55.42.mp4" autoplay loop muted></video></div>
+    </div>
+  </div>
+      </template>
     </div>
   </div>
 
-    <div class="modal" id="modal">
-      <div class="modal-content" id="modal-content"></div>
-    </div>
+  <div class="modal" id="modal">
+    <div class="modal-content" id="modal-content"></div>
+  </div>
 
- <script>
-const containers = document.querySelectorAll('.media-container');
+  <!-- GSAP CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
 
-containers.forEach((el, index) => {
-  el.addEventListener('mouseenter', () => {
-    containers.forEach((c, i) => {
-      c.classList.remove('hovered');
-      c.style.transform = '';
-      c.style.zIndex = '';
-    });
-
-    el.classList.add('hovered');
-    el.style.transform = 'scale(1.4)';
-    el.style.zIndex = 10;
-
-    containers.forEach((c, i) => {
-      if (i === index) return;
-
-      const distance = i - index;
-      const absDistance = Math.abs(distance);
-
-      // Scale уменьшается по мере удаления, минимум 1
-      const scale = 1 + Math.max(0.12 - absDistance * 0.015, 0);
-      const shift = distance * 20; // пикселей сдвига
-
-      c.style.transform = `scale(${scale}) translateX(${shift}px)`;
-      c.style.zIndex = 10 - absDistance;
-    });
-  });
-
-  el.addEventListener('mouseleave', () => {
-    containers.forEach(c => {
-      c.classList.remove('hovered');
-      c.style.transform = '';
-      c.style.zIndex = '';
-    });
-  });
-});
-
-// === Модальное окно ===
-const modal = document.getElementById('modal');
-const modalContent = document.getElementById('modal-content');
-
-document.querySelectorAll('.media-container').forEach((el) => {
-  el.addEventListener('click', () => {
-    const media = el.querySelector('img, video');
-
-    if (media.tagName === 'IMG') {
-      modalContent.innerHTML = `<img src="${media.src}" />`;
-    } else if (media.tagName === 'VIDEO') {
-      modalContent.innerHTML = `<video src="${media.src}" autoplay loop muted></video>`;
+  <script>
+    // ==== Дублирование мультимедиа ====
+    const scroller = document.getElementById('scroller');
+    const mediaTemplate = document.getElementById('media-template').content;
+    for (let i = 0; i < 3; i++) {
+      scroller.appendChild(mediaTemplate.cloneNode(true));
     }
 
-    modal.style.display = 'flex';
-  });
-});
+    // ==== Увеличение при наведении ====
+    const containers = document.querySelectorAll('.media-container');
 
-modal.addEventListener('click', () => {
-  modal.style.display = 'none';
-  modalContent.innerHTML = '';
-});
+    containers.forEach((el, index) => {
+      el.addEventListener('mouseenter', () => {
+        containers.forEach((c, i) => {
+          c.classList.remove('hovered');
+          c.style.transform = '';
+          c.style.zIndex = '';
+        });
 
+        el.classList.add('hovered');
+        el.style.transform = 'scale(1.4)';
+        el.style.zIndex = 10;
+
+        containers.forEach((c, i) => {
+          if (i === index) return;
+          const distance = i - index;
+          const absDistance = Math.abs(distance);
+          const scale = 1 + Math.max(0.12 - absDistance * 0.015, 0);
+          const shift = distance * 20;
+          c.style.transform = `scale(${scale}) translateX(${shift}px)`;
+          c.style.zIndex = 10 - absDistance;
+        });
+      });
+
+      el.addEventListener('mouseleave', () => {
+        containers.forEach(c => {
+          c.classList.remove('hovered');
+          c.style.transform = '';
+          c.style.zIndex = '';
+        });
+      });
+    });
+
+    // ==== Модальное окно ====
+    const modal = document.getElementById('modal');
+    const modalContent = document.getElementById('modal-content');
+
+    document.querySelectorAll('.media-container').forEach((el) => {
+      el.addEventListener('click', () => {
+        const media = el.querySelector('img, video');
+
+        if (!media) return;
+
+        if (media.tagName.toUpperCase() === 'IMG') {
+          modalContent.innerHTML = `<img src="${media.src}" />`;
+        } else if (media.tagName.toUpperCase() === 'VIDEO') {
+          modalContent.innerHTML = `<video src="${media.src}" autoplay loop muted controls></video>`;
+        }
+
+        modal.style.display = 'flex';
+      });
+    });
+
+    modal.addEventListener('click', () => {
+      modal.style.display = 'none';
+      modalContent.innerHTML = '';
+    });
+
+    // ==== Меню переходы ====
+    document.querySelector('.main_hi')?.addEventListener('click', () => {
+      window.location.href = 'index.html';
+    });
+    document.querySelector('.go-author')?.addEventListener('click', () => {
+      window.location.href = 'author.html';
+    });
+    document.querySelector('.go-works')?.addEventListener('click', () => {
+      window.location.href = 'works.html';
+    });
+    document.querySelector('.go-pictures')?.addEventListener('click', () => {
+      window.location.href = 'pictures.html';
+    });
+
+    // ==== Перевод ====
+    const translations = {
+      ru: {
+        description: "Я занимаюсь дизайном около года. Знаю, как работать с интерфейсами и брендингом. Люблю работать в команде и стремлюсь стать её частью.",
+        photoBg: "images/image_ru_works.png",
+        menu: {
+          author: "Автор",
+          works: "Работы",
+          pictures: "Картинки"
+        }
+      },
+      en: {
+        description: "I have been doing design for about a year now. I know how to work with interfaces and branding. I like to work in a team and strive to become a part of it.",
+        photoBg: "images/image_eng_works.png",
+        menu: {
+          author: "Author",
+          works: "Works",
+          pictures: "Pictures"
+        }
+      }
+    };
+
+    let currentLang = localStorage.getItem('siteLang') || 'en';
+
+    function updateContent() {
+      document.getElementById('description-text').textContent = translations[currentLang].description;
+      document.querySelector('.photo_text').style.backgroundImage = `url('${translations[currentLang].photoBg}')`;
+      document.querySelector('.go-author').textContent = translations[currentLang].menu.author;
+      document.querySelector('.go-works').textContent = translations[currentLang].menu.works;
+      document.querySelector('.go-pictures').textContent = translations[currentLang].menu.pictures;
+    }
+
+    updateContent();
+
+    document.getElementById('langToggle')?.addEventListener('click', () => {
+      currentLang = currentLang === 'ru' ? 'en' : 'ru';
+      localStorage.setItem('siteLang', currentLang);
+      updateContent();
+    });
+
+    // ==== Смена иконки кнопки main_hi ====
+    const btn = document.querySelector('.main_hi');
+    const images = ['images/🤵‍♀️.png', 'images/🖼.png', 'images/📚.png'];
+    let currentIndex = 0;
+
+    function updateButtonBackground() {
+      btn.style.backgroundImage = `url(${images[currentIndex]})`;
+    }
+
+    updateButtonBackground();
+
+    btn.addEventListener('click', () => {
+      currentIndex = (currentIndex + 1) % images.length;
+      updateButtonBackground();
+    });
+
+gsap.fromTo('.main_hi', 
+  { opacity: 0 },      // начальное состояние — прозрачность 0
+  { opacity: 1,        // конечное состояние — прозрачность 1
+    duration: 1,
+    ease: "power2.out"
+  }
+);
+
+    gsap.from('.about_me > *', {
+      opacity: 0,
+      y: 30,
+      duration: 1.2,
+      stagger: 0.3,
+      ease: "power3.out",
+      delay: 0.5
+    });
+
+    gsap.from('.media-container', {
+      opacity: 0,
+      scale: 0.95,
+      stagger: 0.1,
+      duration: 1,
+      ease: "power2.out",
+      delay: 1
+    });
   </script>
 
 </body>
