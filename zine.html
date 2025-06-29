@@ -31,6 +31,7 @@ body {
 /* Обёртка с отступом и сдвигом вниз */
 .wrap_without_text_below.mt_small {
   width: 100vw;
+  max-width: 100vw;
   padding: 0 0vw 4vw;
   box-sizing: border-box;
   position: relative;
@@ -42,6 +43,7 @@ body {
 /* Контейнер слайдера */
 .slider-container {
   width: 100%;
+   max-width: 100%;
   margin: 0 auto;
   overflow: visible;
   position: relative;
@@ -213,6 +215,18 @@ body {
 }
 
 
+.flickity-slider {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+     max-width: 100%;
+    max-height: 100%;
+   
+
+  overflow-x: hidden;
+}
+
+
 /* Секция с изображением книги */
 .nachinka_book_photo {
   margin-top: 0vh;
@@ -221,12 +235,19 @@ body {
 .nachinka_book_photo img {
   width: 100%;
   height: 100%;
+  max-width: 100%;
+ 
   object-fit: cover;
   display: block;
 }
 
 
-
+.wrap_without_text_below.mt_small {
+  overflow-x: hidden;
+}
+.slider-container {
+  overflow-x: hidden;
+}
 @media (max-width: 1024px) and (min-width: 768px) {
 
 .flickity-prev-next-button {
@@ -236,6 +257,22 @@ body {
 }
 
 }
+
+ @media (max-width: 375px) {
+
+  .nachinka_book {
+    position: absolute;
+    margin-top: -19vw;
+  }
+
+
+.flickity-prev-next-button {
+    width: 10vw;
+    height: 10vw;
+
+}
+
+ }
 
 
 </style>

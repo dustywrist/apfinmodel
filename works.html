@@ -16,7 +16,7 @@
       margin: 0;
       padding: 0;
       overflow-x: hidden;
-      background-color: #ffffff;
+      background-color: #000000;
       width: 140vw;
     }
 
@@ -53,7 +53,7 @@
   right: 0;
   bottom: 0;
   background-position: center;
-  background-size: cover;
+  background-size: 100%;
   background-repeat: no-repeat;
   
 }
@@ -150,11 +150,37 @@
       width: 100%;
       height: auto;
     }
+
+        .panel_1 {
+  height: 149vw;
+}
+.panel_2 {
+  height: 95vw;
+}
+.panel_3 {
+  height: 137vw;
+}
+
+#pan_1 {
+margin: 136vw auto;
+}
+
+#pan_2 {
+margin: 83vw auto;
+}
+
+#pan_3 {
+margin: 125vw auto;
+
   }
 
-
+ }
 
 @media (max-width: 375px) {
+
+
+   
+
     /* Контейнер работ теперь вертикальный */
     .my_works {
       flex-direction: column;
@@ -175,7 +201,6 @@
     .button_1 {
     position: relative;
     display: block;
-    margin: 165vw auto;
     width: 90vw;
     text-align: center;
     padding: 0.6rem 1.5rem;
@@ -196,8 +221,30 @@
       width: 100%;
       height: auto;
     }
-  }
 
+    .panel_1 {
+  height: 149vw;
+}
+.panel_2 {
+  height: 96vw;
+}
+.panel_3 {
+  height: 138vw;
+}
+
+#pan_1 {
+margin: 136vw auto;
+}
+
+#pan_2 {
+margin: 83vw auto;
+}
+
+#pan_3 {
+margin: 125vw auto;
+}
+
+}
   </style>
 </head>
 <body>
@@ -219,7 +266,7 @@
   <section class="my_works">
     <!-- Панель 1 -->
     <section class="panel panel_1">
-      <button class="button_1" data-i18n="zineDesign">Zine design</button>
+      <button class="button_1" id="pan_1" data-i18n="zineDesign">Zine design</button>
       <div class="zine_work">
         <video class="panel_video" muted loop preload="none" playsinline loading="lazy">
           <source src="../apfinmodel/images/book_prew.mp4" type="video/mp4" />
@@ -229,7 +276,7 @@
 
     <!-- Панель 2 -->
     <section class="panel panel_2">
-      <button class="button_1" data-i18n="creativeWebsite">Creative website for the festival</button>
+      <button class="button_1" id="pan_2" data-i18n="creativeWebsite">Creative website for the festival</button>
       <div class="creative_website">
         <video class="panel_video" muted loop preload="none" playsinline loading="lazy">
           <source src="../apfinmodel/images/cite_prew_video.mp4" type="video/mp4" />
@@ -239,7 +286,7 @@
 
     <!-- Панель 3 -->
     <section class="panel panel_3">
-      <button class="button_1" data-i18n="posters">Posters</button>
+      <button class="button_1" id="pan_3" data-i18n="posters">Posters</button>
       <div class="posters">
         <video class="panel_video" muted loop preload="none" playsinline loading="lazy">
           <source src="../apfinmodel/images/00000-0220.mp4" type="video/mp4" />
@@ -276,29 +323,7 @@ function initScrollAnimation() {
     });
   }
 
-  // Вертикальные анимации появления для планшетов
-  else if (screenWidth >= 375 && screenWidth <= 1024) {
-    // Анимация каждой панели
-    document.querySelectorAll(".panel").forEach((panel, index) => {
-      gsap.fromTo(panel, 
-        { opacity: 0, y: 100 },
-        { 
-          xPercent: 0,
-          opacity: 1,
-          y: 0,
-          duration: 1,
-          ease: "power2.out",
-          scrollTrigger: {
-            trigger: panel,
-            start: "top 80%",
-            toggleActions: "play none none reverse"
-          }
-        }
-      );
-    });
-  }
 }
-
 // Запускаем и пересоздаем при изменении размеров окна
 initScrollAnimation();
 window.addEventListener("resize", () => {

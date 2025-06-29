@@ -158,6 +158,32 @@
       cursor: pointer;
       z-index: 10;
     }
+
+
+@media (max-width: 375px) {
+  .posters_1_line {
+    flex-direction: column;
+  }
+
+  .nachinka_posters_3 img {
+    max-width: 90%;
+  }
+
+  .opisanie_proekta {
+    width: 80vw;
+    margin-top: 48vw !important;;
+}
+
+.nachinka_posters {
+  margin-top: -15vw;
+}
+
+.overlay-content img {
+  width: 42vw;
+}
+
+}
+
   </style>
 </head>
 
@@ -333,7 +359,7 @@ posters.forEach((poster, index) => {
   poster.setAttribute('loading', 'lazy');
 
   gsap.fromTo(poster,
-    { opacity: 0, scale: 0.8, y: 20 },
+    { opacity: 0, y: 20 },
     {
       opacity: 1,
       scale: 1,
