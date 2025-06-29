@@ -167,10 +167,11 @@ padding: 0.8rem 0.8rem;
   
 /* Главное меню */
 .main_menu {
+
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
+  left: 50%;
+  top: 4%;
+  transform: translate(-50%, -50%);
   color: white;
   display: flex;
   justify-content: center;
@@ -178,6 +179,8 @@ padding: 0.8rem 0.8rem;
   padding: 1rem 0;
   z-index: 1000;
   font-family: "Regular";
+  width: auto; /* важный момент */
+
 }
 
 /* Контейнер с тремя кнопками меню */
