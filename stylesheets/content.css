@@ -195,10 +195,8 @@ padding: 0.8rem 0.8rem;
     padding: 0.6rem;
     background-size: 3.5vw;
   }
-}
 
-
-.basic_text_1 {
+    .basic_text_1 {
   font-size: 3vw;
 }
 
@@ -220,7 +218,46 @@ padding: 0.8rem 0.8rem;
 .loliki {
   font-size: 2vw;
 }
+  }
 
 
+
+
+
+
+ @media (max-width: 375px) {
+  
+
+  .main_menu {
+    position: fixed !important;   /* важно, чтобы перекрыть другие стили */
+    left: 50% !important;
+    top: 4% !important;
+    transform: translate(-50%, -50%) !important;
+    width: auto !important;
+    padding: 1rem 0 !important;
+    display: flex !important;
+    justify-content: center !important;
+    gap: 0.2rem !important;
+    box-sizing: border-box; /* чтобы padding не вызывал выход за ширину */
+  }
+
+  .three_words_meny {
+    gap: 5vw; /* уменьшил расстояние между кнопками чтобы не вылазить */
+    flex-wrap: nowrap; /* не переносить кнопки */
+  }
+
+  .main_menu button {
+    font-size: 0.9rem; /* чуть меньше шрифт */
+    padding: 0.4rem 0.8rem;
+    background-size: 7vw;
+  }
+
+  .hi_to_hi {
+    width: 6.5vw;
+    height: 6.5vw;
+    padding: 0.6rem;
+    background-size: 3.5vw;
+  }
+}
 
 
