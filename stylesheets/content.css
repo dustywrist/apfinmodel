@@ -1,133 +1,13 @@
+/* Общие стили для body */
 body {
-    margin: 0;
-    padding: 0;
-    overflow-x: hidden;
-    background-color: #ffffff;
-    height: 100vh; /* чтобы был скролл */
-  }
-  
-  .background_v1 {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    z-index: -1;
-    overflow: hidden;
-  }
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  background-color: #ffffff;
+  height: 100vh; /* чтобы был скролл */
+}
 
-  .background {
-    position: fixed;
-    
-    width: 100vw;
-    height: 100vh;
-    top: 0;
-    left: 0;
-    overflow: hidden;
-    z-index: -1;
-  }
-
-  .floating {
-    position: absolute;
-    z-index: 1;
-    mix-blend-mode: normal;
-    user-select: none;
-    pointer-events: none;
-  }
-
-  #small_6 {
-    width: 70vw;
-    top: 10vh;
-    left: -21vw;
-  }
-
-  #small_4 {
-    width: 70vw;
-    top: -38vh;
-    left: -17vw;
-  }
-
-  #small_2 {
-    width: 140vw;
-    top: -40vh;
-    left: 20vw;
-  }
-
-  #small_3 {
-    width: 140vw;
-    top: 50vh;
-    left: -5vw;
-  }
-
-  #small_5 {
-    width: 80vw;
-    top: -10vh;
-    left: 30vw;
-  }
-
-  #small_1 {
-    width: 40vw;
-    top: 0vh;
-    left: 40vw;
-  }
-
-  .menu_hi {
-
-    display: flex;
-    width: 17vw;
-    height: 1.8vw;
-    padding: 2vw 0.5vw;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    gap: 0.7vw;
-    flex-shrink: 0;
-    border-radius: 1vw;
-    background: rgba(190, 186, 186, 0.4);
-      border: 1px solid rgba(255, 255, 255, 0.3);
-    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25), 0px 4px 35px 0px rgba(0, 0, 0, 0.25);
-    backdrop-filter: blur(32.29999923706055px);
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-
-  }
-
-
-
-.button {
-    background: rgba(53, 52, 52, 0.60);
-    color: white;
-    border: none;
-    padding: 1vw 1vw;
-    border-radius: 0.5vw;
-    font-size: 1.1vw;
-    cursor: pointer;
-    z-index: 100;
-  }
-
-  .icon-button {
-    width: 1.3vw;
-    height: 1.3vw;
-    background: rgba(53, 52, 52, 0.60);
-    padding: 1vw 1vw;
-    border-radius: 0.5vw;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-image: url(../images/🔄.png);
-    background-size: cover; 
-    background-repeat: no-repeat; 
-    background-position: center;
-    background-size: 2.3vw;
-  }
-
-
-
-  /* works html */
-
+/* Главное меню */
 .main_menu {
   position: fixed;
   top: 0;
@@ -140,27 +20,28 @@ body {
   padding: 1rem 0;
   z-index: 1000;
   font-family: "Regular";
-  
 }
 
+/* Контейнер с тремя кнопками меню */
 .three_words_meny {
   display: flex;
   gap: 6vw;
 }
 
+/* Общие стили для меню и блока переключения языка */
 .three_words_meny,
 .hi_to_hi {
-  background: rgba(53, 52, 52, 0.60);
-       backdrop-filter: blur(100vw);
-         border: 1px solid rgba(190, 190, 190, 0.3);
-  border: none;
+  background: rgba(53, 52, 52, 0.6);
+  backdrop-filter: blur(100vw);
   border-radius: 10px;
   padding: 0.5rem 1rem;
   color: white;
   font-size: 1rem;
   cursor: pointer;
+  border: none;
 }
 
+/* Кнопки главного меню */
 .main_menu button {
   background: none;
   border: none;
@@ -168,299 +49,36 @@ body {
   color: white;
   font-size: 1rem;
   cursor: pointer;
-   background-size: 2.3vw;
-      background-repeat: no-repeat;
-      background-position: center;
-      border: none;
-      cursor: pointer;
-    
-
-  
+  background-size: 2.3vw;
+  background-repeat: no-repeat;
+  background-position: center;
 }
 
+/* Блок переключения языка */
 .hi_to_hi {
-padding: 0.8rem 0.8rem;
-      background-size: 2.3vw;
-      background-repeat: no-repeat;
-      background-position: center;
-      border: none;
-      cursor: pointer;
-      width: 2vw;
-      height: 2vw;
-
+  padding: 0.8rem;
+  background-size: 2.3vw;
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 2vw;
+  height: 2vw;
 }
 
-.my_works {
-  display: flex;
-  flex-direction: row;
-  height: 100vh;
-  width: 140vw; 
-  overflow-x: auto;
-  scroll-snap-type: x mandatory;
-}
-
+/* Кнопка переключения языка */
 .main_hi {
-  width: 100%;  /* или конкретный размер, например 5vw */
-  height: 100%; /* или конкретный размер, например 5vw */
+  width: 100%;
+  height: 100%;
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
   cursor: pointer;
-  padding: 0; /* если padding мешает */
+  padding: 0;
   border: none;
   box-sizing: border-box;
 }
-.panel {
-  scroll-snap-align: start;
-  height: 100vh;
-  position: relative;
-  overflow: hidden;
-}
 
-.panel_1 {
-  width: 30vw;
-}
-.panel_2 {
-  width: 70vw;
-}
-.panel_3 {
-  width: 40vw;
-}
-
-.zine_work, .creative_website, .posters {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-position: center;
-  background-size: cover;
-  background-repeat: no-repeat;
-  
-}
-
-.zine_work {
-  background-image: url(../images/book_prew_1.png);
-}
-
-.creative_website {
-  background-image: url(../images/site_prew.png);
-}
-
-.posters {
-  background-image: url(../images/poster_prew.png);
-}
-
-.button_1 {
-  position: absolute;
-  bottom: 1vw;
-  right: 1vw;
-  background: rgba(53, 52, 52, 0.60);
-  backdrop-filter: blur(100vw);
-  
-  color: white;
-  border: none;
-  padding: 1vw;
-  border-radius: 0.5vw;
-  font-size: 1rem;
-  cursor: pointer;
-  z-index: 100;
-  white-space: nowrap;
-}
-
-
-.panel {
-  position: relative;
-  overflow: hidden;
-}
-
-.panel_video {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  position: absolute;
-  top: 0;
-  left: 0;
-  opacity: 0;
-  transition: opacity 0.6s ease;
-  pointer-events: none;
-}
-
-.panel:hover .panel_video {
-  opacity: 1;
-}
-
-
-  /* author html */
-   
-.about_me {
-  display: flex;
-  position: relative;
-  flex-direction: column;
-  width: 50vw;
-  height: fit-content;
-   top: 45%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    gap: 1vw;
-}
-
-.description {
-  font-family: "SemiBold";
-  font-style: normal;
-  font-weight: 600;
-  font-size: 2vw;
-  line-height: 130%; /* 51.941px */
-  letter-spacing: 1.823px;
-
-}
-
-.photo_text {
-      background-size: cover;
-      background-repeat: no-repeat;
-      background-position: center;
-      height: 13vw;
-      width: 50vw;
-    }
-      
-    .media-wrapper {
-      position: fixed;
-      bottom: 0.5vw;
-      left: 0;
-      width: 100%;
-      overflow: hidden;
-      padding: 20px 0;
-      z-index: 1000;
-
-    }
-
-    .scroller {
-      display: flex;
-      gap: 20px;
-      white-space: nowrap;
-      animation: scroll 60s linear infinite;
-      align-items: center;
-      padding-left: 20px;
-    }
-
-    .media-container {
-      flex: 0 0 auto;
-      transition: transform 0.3s ease;
-      transform-origin: center center;
-    }
-
-    .media-container img,
-    .media-container video {
-      height: 5vw;
-      width: auto;
-      object-fit: cover;
-      display: block;
-      transition: transform 0.3s ease;
-    
-    }
-
-    @keyframes scroll {
-      0% { transform: translateX(0%); }
-      100% { transform: translateX(-50%); }
-    }
-
-   
-
-    .modal {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-  position: fixed;
-  top: 0; left: 0;
-  width: 100vw;
-  height: 100vh;
-  background: rgba(199, 199, 199, 0.50);
-  box-shadow: 0px 3.77px 3.77px 0px rgba(0, 0, 0, 0.25), 0px 3.77px 3.77px 0px rgba(0, 0, 0, 0.25);
-  backdrop-filter: blur(80.95393371582031px);
-  display: none;
-  justify-content: center;
-  align-items: center;
-  z-index: 5000;
-    cursor: pointer;
-    
-}
-
-.modal-content {
-  max-width: 100vw;
-  max-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.modal-content img,
-.modal-content video {
-  width: auto;
-  height: auto;
-  max-width: 90vw;
-  max-height: 80vh;
-  object-fit: contain;
-  display: block;
-}
-
-
-.contacts_all {
-  gap: 30vw;
-  display: flex;
-  justify-content: flex-start;
-
-
-}
-.contacts_1 {
-  display: flex;
-  flex-direction: row;
-  
-   align-items: flex-end; /* Выравнивание по нижней границе контейнера */
-
-  gap: 0.4vw;
-}
-
-.naming {
-font-family: "Regular";
-font-style: normal;
-font-weight: 400;
-font-size: 0.9vw;
-}
-
-.econt {
-  font-family: "Regular";
-font-style: normal;
-font-weight: 400;
-font-size: 1.5vw;
-}
-
-.contacts_2 {
-  display: flex;
-  flex-direction: row;
-   align-items: flex-end; /* Выравнивание по нижней границе контейнера */
-  gap: 0.6vw;
-}
-
-.inst, .tg {
-  display: inline-block;
-  width: 1.5vw;
-  height: 1.5vw;
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center;
-}
-
-/* Индивидуальные изображения */
-.inst {
-  background-image: url('../images/instagram-round-svgrepo-com 1.svg');
-}
-
-.tg {
-  background-image: url('../images/telegram-svgrepo-com 1.svg');
-}
-
-
-.opisanie_proekta{
+/* Описание проекта */
+.opisanie_proekta {
   display: flex;
   flex-direction: column;
   width: 50vw;
@@ -469,11 +87,11 @@ font-size: 1.5vw;
   top: 30%;
   left: 50%;
   transform: translate(-50%, -50%);
-   font-family: "Regular", sans-serif;
+  font-family: "Regular", sans-serif;
   gap: 1.5vw;
 }
 
-
+/* Основной текст описания проекта */
 .basic_text_1 {
   font-family: "SemiBold";
   font-style: normal;
@@ -485,13 +103,14 @@ font-size: 1.5vw;
   text-align: left;
 }
 
+/* Блок с мини-подписями */
 .mini_podpisi {
   display: flex;
- 
- justify-content: space-between; /* Распределяет элементы по краям */
-  width: 100%;        
+  justify-content: space-between;
+  width: 100%;
 }
 
+/* Внутренний блок мини-подписей */
 .mini_podpisi_nachinka {
   display: flex;
   flex-direction: row;
@@ -500,17 +119,20 @@ font-size: 1.5vw;
   color: #ffffff;
 }
 
+/* Стиль для слова "куратор" */
 .curator {
   font-size: 0.9vw;
   font-weight: 400;
   color: #ffffff;
 }
 
+/* Имя куратора */
 .name_of_curator {
   font-size: 1.5vw;
   font-weight: 400;
 }
 
+/* Контейнер книги и слайдеров */
 .nachinka_book {
   display: flex;
   flex-direction: column;
@@ -522,21 +144,15 @@ font-size: 1.5vw;
   gap: 5vw;
 }
 
-
+/* Ссылка "View the full case" */
 .loliki {
   font-size: 1.5vw;
   font-weight: 400;
   color: rgba(255, 255, 255, 0.457);
 }
 
-.nachinka_book_photo img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover; /* обрезка и масштабирование изображения */
-  display: block;
-}
-
-.opisanie_proekta_2{
+/* Второе описание проекта (если используется) */
+.opisanie_proekta_2 {
   display: flex;
   flex-direction: column;
   width: 50vw;
@@ -545,8 +161,6 @@ font-size: 1.5vw;
   top: 10%;
   left: 50%;
   transform: translate(-50%, -50%);
-   font-family: "Regular", sans-serif;
+  font-family: "Regular", sans-serif;
   gap: 1.5vw;
 }
-
- 

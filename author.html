@@ -9,13 +9,183 @@
   <link rel="stylesheet" href="stylesheets/style.css" />
   <title>NOT</title>
 </head>
+
+<style>
+/* --- Контейнер "О себе" --- */
+.about_me {
+  display: flex;
+  position: relative;
+  flex-direction: column;
+  width: 50vw;
+  height: fit-content;
+  top: 45%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  gap: 1vw;
+}
+
+/* --- Описание --- */
+.description {
+  font-family: "SemiBold";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 2vw;
+  line-height: 130%;
+  letter-spacing: 1.823px;
+}
+
+/* --- Фоновое изображение/фото с текстом --- */
+.photo_text {
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  height: 13vw;
+  width: 50vw;
+}
+
+/* --- Обертка для медиа (скроллер) --- */
+.media-wrapper {
+  position: fixed;
+  bottom: 0.5vw;
+  left: 0;
+  width: 100%;
+  overflow: hidden;
+  padding: 20px 0;
+  z-index: 1000;
+}
+
+/* --- Горизонтальный скроллер медиа --- */
+.scroller {
+  display: flex;
+  gap: 20px;
+  white-space: nowrap;
+  animation: scroll 60s linear infinite;
+  align-items: center;
+  padding-left: 20px;
+}
+
+/* --- Контейнер для каждого элемента медиа --- */
+.media-container {
+  flex: 0 0 auto;
+  transition: transform 0.3s ease;
+  transform-origin: center center;
+}
+
+/* --- Стили для изображений и видео в медиа --- */
+.media-container img,
+.media-container video {
+  height: 5vw;
+  width: auto;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.3s ease;
+}
+
+/* --- Анимация горизонтального скролла --- */
+@keyframes scroll {
+  0% { transform: translateX(0%); }
+  100% { transform: translateX(-50%); }
+}
+
+/* --- Модальное окно --- */
+.modal {
+  display: none;
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(199, 199, 199, 0.5);
+  box-shadow: 0px 3.77px 3.77px rgba(0, 0, 0, 0.25);
+  backdrop-filter: blur(80.95px);
+  justify-content: center;
+  align-items: center;
+  z-index: 5000;
+  cursor: pointer;
+}
+
+/* --- Контент модального окна --- */
+.modal-content {
+  max-width: 100vw;
+  max-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* --- Изображения и видео в модальном окне --- */
+.modal-content img,
+.modal-content video {
+  width: auto;
+  height: auto;
+  max-width: 90vw;
+  max-height: 80vh;
+  object-fit: contain;
+  display: block;
+}
+
+/* --- Контейнеры контактов --- */
+.contacts_all {
+  gap: 30vw;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.contacts_1 {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  gap: 0.4vw;
+}
+
+.naming {
+  font-family: "Regular";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 0.9vw;
+}
+
+.econt {
+  font-family: "Regular";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 1.5vw;
+}
+
+.contacts_2 {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  gap: 0.6vw;
+}
+
+/* --- Иконки соцсетей --- */
+.inst, .tg {
+  display: inline-block;
+  width: 1.5vw;
+  height: 1.5vw;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+/* --- Индивидуальные иконки --- */
+.inst {
+  background-image: url('./images/instagram-round-svgrepo-com 1.svg');
+}
+
+.tg {
+  background-image: url('./images/telegram-svgrepo-com 1.svg');
+}
+
+</style>
+
 <body>
 
+  <!-- Главное меню -->
   <section class="main_menu">
     <section class="hi_to_hi">
       <button class="main_hi"></button>
     </section>
-
     <section class="three_words_meny">
       <button class="go-author">Author</button>
       <button class="go-works">Works</button>
@@ -23,13 +193,12 @@
     </section>
   </section>
 
+  <!-- Блок "О себе" -->
   <div class="about_me">
     <div class="photo_text"></div>
-
     <div class="description">
       <p id="description-text">I have been doing design for about a year now. I know how to work with interfaces and branding. I like to work in a team and strive to become a part of it.</p>
     </div>
-
     <div class="contacts_all">
       <div class="contacts_1">
         <p class="naming">e-mail:</p>
@@ -42,47 +211,45 @@
     </div>
   </div>
 
+  <!-- Бесконечный скролл мультимедиа -->
   <div class="media-wrapper">
     <div class="scroller" id="scroller">
-      <!-- Мультимедиа: трижды продублированы -->
-      <!-- Один блок: повторяется три раза для бесконечного скролла -->
       <template id="media-template">
-          <div class="media-container"><img src="../apfinmodel/images/telegram-cloud-photo-size-2-5224202914262805102-y 1.png" /></div>
-          <div class="media-container"><img src="../apfinmodel/images/screen_1_5.png" /></div>
-          <div class="media-container"><img src="../apfinmodel/images/2025-06-04 00.55.54.jpg" /></div>
-          <div class="media-container"><img src="../apfinmodel/images/2025-06-29 01.46.14.jpg" /></div>
-          <div class="media-container"><img src="../apfinmodel/images/pngwing.com (6) 2.png" /></div>
-          <div class="media-container"><img src="../apfinmodel/images/2025-06-29 01.47.12.jpg" /></div>
-          <div class="media-container"><video src="../apfinmodel/images/2025-06-04 00.55.28.mp4" autoplay loop muted></video></div>
-          <div class="media-container"><img src="../apfinmodel/images/telegram-cloud-photo-size-2-5303502110924600922-y 1.png" /></div>
-          <div class="media-container"><img src="../apfinmodel/images/shristcompose.png" /></div>
-          <div class="media-container"><img src="../apfinmodel/images/tgphoto.jpg" /></div>
-          <div class="media-container"><img src="../apfinmodel/images/screen_1_4.png" /></div>
-          <div class="media-container"><video src="../apfinmodel/images/2025-06-04 00.55.42.mp4" autoplay loop muted></video></div>
-    </div>
-  </div>
+        <div class="media-container"><img src="../apfinmodel/images/telegram-cloud-photo-size-2-5224202914262805102-y 1.png" loading="lazy" /></div>
+        <div class="media-container"><img src="../apfinmodel/images/screen_1_5.png" loading="lazy" /></div>
+        <div class="media-container"><img src="../apfinmodel/images/2025-06-04 00.55.54.jpg" loading="lazy" /></div>
+        <div class="media-container"><img src="../apfinmodel/images/2025-06-29 01.46.14.jpg" loading="lazy" /></div>
+        <div class="media-container"><img src="../apfinmodel/images/pngwing.com (6) 2.png" loading="lazy" /></div>
+        <div class="media-container"><img src="../apfinmodel/images/2025-06-29 01.47.12.jpg" loading="lazy" /></div>
+        <div class="media-container"><video src="../apfinmodel/images/2025-06-04 00.55.28.mp4" autoplay loop muted></video></div>
+        <div class="media-container"><img src="../apfinmodel/images/telegram-cloud-photo-size-2-5303502110924600922-y 1.png" loading="lazy" /></div>
+        <div class="media-container"><img src="../apfinmodel/images/shristcompose.png" loading="lazy" /></div>
+        <div class="media-container"><img src="../apfinmodel/images/tgphoto.jpg" loading="lazy" /></div>
+        <div class="media-container"><img src="../apfinmodel/images/screen_1_4.png" loading="lazy" /></div>
+        <div class="media-container"><video src="../apfinmodel/images/2025-06-04 00.55.42.mp4" autoplay loop muted></video></div>
       </template>
     </div>
   </div>
 
+  <!-- Модальное окно -->
   <div class="modal" id="modal">
     <div class="modal-content" id="modal-content"></div>
   </div>
 
-  <!-- GSAP CDN -->
+  <!-- GSAP библиотека -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
 
+  <!-- Скрипты -->
   <script>
-    // ==== Дублирование мультимедиа ====
+    // Повторение шаблона медиа 3 раза
     const scroller = document.getElementById('scroller');
     const mediaTemplate = document.getElementById('media-template').content;
     for (let i = 0; i < 3; i++) {
       scroller.appendChild(mediaTemplate.cloneNode(true));
     }
 
-    // ==== Увеличение при наведении ====
+    // Эффект наведения на медиа
     const containers = document.querySelectorAll('.media-container');
-
     containers.forEach((el, index) => {
       el.addEventListener('mouseenter', () => {
         containers.forEach((c, i) => {
@@ -90,7 +257,6 @@
           c.style.transform = '';
           c.style.zIndex = '';
         });
-
         el.classList.add('hovered');
         el.style.transform = 'scale(1.4)';
         el.style.zIndex = 10;
@@ -115,27 +281,45 @@
       });
     });
 
-    // ==== Модальное окно ====
+    // Модальное окно
     const modal = document.getElementById('modal');
     const modalContent = document.getElementById('modal-content');
 
-    document.querySelectorAll('.media-container').forEach((el) => {
+    document.querySelectorAll('.media-container').forEach(el => {
       el.addEventListener('click', () => {
         const media = el.querySelector('img, video');
-
         if (!media) return;
 
-        if (media.tagName.toUpperCase() === 'IMG') {
+        if (media.tagName === 'IMG') {
           modalContent.innerHTML = `<img src="${media.src}" />`;
-        } else if (media.tagName.toUpperCase() === 'VIDEO') {
+        } else {
           modalContent.innerHTML = `<video src="${media.src}" autoplay loop muted controls></video>`;
         }
 
         modal.style.display = 'flex';
+        gsap.to(modal, {
+          duration: 0.5,
+          opacity: 1,
+          pointerEvents: 'auto',
+          ease: 'power2.out'
+        });
       });
     });
 
-    // ==== Меню переходы ====
+    modal.addEventListener('click', () => {
+      gsap.to(modal, {
+        duration: 0.5,
+        opacity: 0,
+        pointerEvents: 'none',
+        ease: 'power2.in',
+        onComplete: () => {
+          modalContent.innerHTML = '';
+          modal.style.display = 'none';
+        }
+      });
+    });
+
+    // Меню переходы
     document.querySelector('.main_hi')?.addEventListener('click', () => {
       window.location.href = 'index.html';
     });
@@ -149,7 +333,7 @@
       window.location.href = 'pictures.html';
     });
 
-    // ==== Перевод ====
+    // Перевод контента
     const translations = {
       ru: {
         description: "Занимаюсь дизайном около года. Интересуюсь работой с интерфейсами и брендингом. Люблю людей и стремлюсь стать частью заряженной команды.",
@@ -189,7 +373,7 @@
       updateContent();
     });
 
-    // ==== Смена иконки кнопки main_hi ====
+    // Анимация иконки главной кнопки
     const btn = document.querySelector('.main_hi');
     const images = ['images/🤵‍♀️.png', 'images/🖼.png', 'images/📚.png'];
     let currentIndex = 0;
@@ -205,13 +389,8 @@
       updateButtonBackground();
     });
 
-gsap.fromTo('.main_hi', 
-  { opacity: 0 },      // начальное состояние — прозрачность 0
-  { opacity: 1,        // конечное состояние — прозрачность 1
-    duration: 1,
-    ease: "power2.out"
-  }
-);
+    // Анимации GSAP
+    gsap.fromTo('.main_hi', { opacity: 0 }, { opacity: 1, duration: 1, ease: "power2.out" });
 
     gsap.from('.about_me > *', {
       opacity: 0,
@@ -230,46 +409,6 @@ gsap.fromTo('.main_hi',
       ease: "power2.out",
       delay: 1
     });
-
-
-
-// Показываем
-document.querySelectorAll('.media-container').forEach(el => {
-  el.addEventListener('click', () => {
-    const media = el.querySelector('img, video');
-    if (!media) return;
-
-    if (media.tagName === 'IMG') {
-      modalContent.innerHTML = `<img src="${media.src}" />`;
-    } else {
-      modalContent.innerHTML = `<video src="${media.src}" autoplay loop muted controls></video>`;
-    }
-
-    modal.style.display = 'flex';
-    gsap.to(modal, {
-      duration: 0.5,
-      opacity: 1,
-      pointerEvents: 'auto',
-      ease: 'power2.out'
-    });
-  });
-});
-
-// Скрываем с анимацией
-modal.addEventListener('click', () => {
-  gsap.to(modal, {
-    duration: 0.5,
-    opacity: 0,
-    pointerEvents: 'none',
-    ease: 'power2.in',
-    onComplete: () => {
-      modalContent.innerHTML = '';
-      modal.style.display = 'none';
-    }
-  });
-});
-
-
   </script>
 
 </body>

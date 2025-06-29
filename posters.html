@@ -8,13 +8,13 @@
   <link rel="icon" type="image/x-icon" href="images/favicon.png" />
   <link rel="stylesheet" href="stylesheets/style.css" />
   <title>NOT</title>
-
   <style>
+    /* Общие стили и фон */
     body {
       margin: 0;
       padding: 0;
       overflow-x: hidden;
-      background-color: #ffffff;
+      background-color: #fff;
       height: 200vh;
     }
 
@@ -24,6 +24,7 @@
       min-height: 100vh;
     }
 
+    /* Постеры */
     .nachinka_posters {
       display: flex;
       flex-direction: column;
@@ -46,7 +47,7 @@
     .nachinka_posters_2 {
       display: flex;
       justify-content: flex-start;
-      gap: 4.0vw;
+      gap: 4vw;
       flex-wrap: wrap;
     }
 
@@ -55,21 +56,6 @@
       max-width: 48%;
       height: auto;
       object-fit: cover;
-    }
-
-    .nachinka_posters_4 {
-      width: 100vw;
-      max-width: 100vw;
-      overflow: hidden;
-      margin-left: 0;
-      position: relative;
-    }
-
-    .nachinka_posters_4 video {
-      width: 100vw;
-      height: auto;
-      object-fit: contain;
-      display: block;
     }
 
     .nachinka_posters_2 img {
@@ -85,11 +71,10 @@
     .nachinka_posters_3 {
       padding: 4vw;
       display: flex;
+      flex-direction: column;
       gap: 3vw;
-      flex-wrap: nowrap;
       justify-content: center;
       align-items: center;
-      flex-direction: column;
     }
 
     .nachinka_posters_3 img {
@@ -98,10 +83,9 @@
       object-fit: cover;
       box-shadow: 0.52vw 0.52vw 1.04vw rgba(0, 0, 0, 0.5);
       transition: transform 0.4s ease, box-shadow 0.4s ease;
-      will-change: transform;
       cursor: pointer;
       border-radius: 0.5vw;
-      opacity: 0; /* Initial state for animation */
+      opacity: 0;
     }
 
     .nachinka_posters_3 img:hover {
@@ -117,7 +101,21 @@
       align-items: center;
     }
 
-    /* Overlay styles */
+    .nachinka_posters_4 {
+      width: 100vw;
+      overflow: hidden;
+      margin-left: 0;
+      position: relative;
+    }
+
+    .nachinka_posters_4 video {
+      width: 100vw;
+      height: auto;
+      object-fit: contain;
+      display: block;
+    }
+
+    /* Оверлей */
     .overlay {
       position: fixed;
       top: 0;
@@ -125,13 +123,13 @@
       width: 100vw;
       height: 100vh;
       background: rgba(0, 0, 0, 0.3);
-      box-shadow: 0px 3.77px 3.77px 0px rgba(0, 0, 0, 0.25), 0px 3.77px 3.77px 0px rgba(0, 0, 0, 0.25);
-      backdrop-filter: blur(0px); /* Initial state for animation */
+      box-shadow: 0px 3.77px 3.77px rgba(0, 0, 0, 0.25);
+      backdrop-filter: blur(0px);
       display: none;
       justify-content: center;
       align-items: center;
       z-index: 9999;
-      opacity: 0; /* Initial state for animation */
+      opacity: 0;
     }
 
     .overlay-content {
@@ -146,12 +144,12 @@
 
     .overlay-content img {
       width: 25vw;
-      max-width: 100%;
       height: auto;
       border-radius: 0.5vw;
-      opacity: 0; /* Initial state for animation */
+      opacity: 0;
     }
 
+    /* Описание проекта */
     .opisanie_proekta_2 {
       margin-top: 30vh;
     }
@@ -168,26 +166,15 @@
 </head>
 
 <body>
-  <iframe id="blurred-bg" src="works.html" style="
-    position: fixed;
-    top: 0; left: 0; width: 100vw; height: 100vh;
-    pointer-events: none;
-    filter: blur(100px);
-    opacity: 0.5;
-    z-index: 0;
-    transform: scale(1.05);
-    user-select: none;
-  "></iframe>
+  <!-- Фоновый iframe -->
+  <iframe id="blurred-bg" loading="lazy" src="works.html" style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; filter: blur(100px); opacity: 0.5; z-index: 0; transform: scale(1.05); user-select: none;"></iframe>
 
-  <div id="black-overlay" style="
-    position: fixed;
-    top: 0; left: 0; width: 100vw; height: 100vh;
-    background: rgba(0, 0, 0, 0.3);
-    pointer-events: none;
-    z-index: 1;
-  "></div>
+  <!-- Черный полупрозрачный оверлей -->
+  <div id="black-overlay" style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0, 0, 0, 0.3); pointer-events: none; z-index: 1;"></div>
 
+  <!-- Обертка контента -->
   <div class="content-wrapper">
+    <!-- Главное меню -->
     <section class="main_menu">
       <section class="hi_to_hi">
         <button class="main_hi" id="langToggle" data-i18n="lang"></button>
@@ -199,24 +186,21 @@
       </section>
     </section>
 
+    <!-- Блок с описанием проекта -->
     <section class="opisanie_proekta_2">
-      <div class="basic_text_1"  data-i18n="projectDescription">
-        NOT is a techno music festival based on melodies extracted from different plants.
-        <br><br>
-        The posters reveal new facets of this festival. NOT is not only a rebellious but also a serious brand.
-      </div>
-        <div class="mini_podpisi">
+      <div class="basic_text_1" data-i18n="projectDescription"></div>
+      <div class="mini_podpisi">
         <div class="mini_podpisi_nachinka">
-          <p class="curator" data-i18n="curatorLabel">куратор:</p>
-          <p class="name_of_curator" data-i18n="curatorName">Виолетта Лукьянова</p>
+          <p class="curator" data-i18n="curatorLabel"></p>
+          <p class="name_of_curator" data-i18n="curatorName"></p>
         </div>
         <div class="pobochkam">
-<a class="loliki" data-i18n="link" href="https://hsedesign.ru/project/7356d76e7ea142daa0bb77593d2d0320">View the full case</a>
-</div>
-
+          <a class="loliki" data-i18n="link" href="https://hsedesign.ru/project/7356d76e7ea142daa0bb77593d2d0320"></a>
+        </div>
       </div>
     </section>
 
+    <!-- Галерея постеров -->
     <section class="nachinka_posters">
       <div class="nachinka_posters_1">
         <video class="fullwidth-video" autoplay muted loop playsinline>
@@ -225,7 +209,7 @@
       </div>
 
       <div class="nachinka_posters_2">
-        <img src="images/posters_nachinla_2.png" alt="Poster 2" />
+        <img loading="lazy" src="images/posters_nachinla_2.png" alt="Poster 2" />
         <video autoplay muted loop playsinline>
           <source src="images/00000-0220.mp4" type="video/mp4" />
         </video>
@@ -233,14 +217,14 @@
 
       <div class="nachinka_posters_3">
         <div class="posters_1_line">
-          <img src="images/poster1.png" alt="Poster 1" data-series="1" />
-          <img src="images/poster2.png" alt="Poster 2" data-series="2" />
-          <img src="images/poster3.png" alt="Poster 3" data-series="3" />
+          <img loading="lazy" src="images/poster1.png" alt="Poster 1" data-series="1" />
+          <img loading="lazy" src="images/poster2.png" alt="Poster 2" data-series="2" />
+          <img loading="lazy" src="images/poster3.png" alt="Poster 3" data-series="3" />
         </div>
         <div class="posters_1_line">
-          <img src="images/poster4.png" alt="Poster 4" data-series="4" />
-          <img src="images/poster5.png" alt="Poster 5" data-series="5" />
-          <img src="images/poster6.png" alt="Poster 6" data-series="6" />
+          <img loading="lazy" src="images/poster4.png" alt="Poster 4" data-series="4" />
+          <img loading="lazy" src="images/poster5.png" alt="Poster 5" data-series="5" />
+          <img loading="lazy" src="images/poster6.png" alt="Poster 6" data-series="6" />
         </div>
       </div>
 
@@ -254,249 +238,250 @@
     </section>
   </div>
 
+  <!-- Оверлей для полноэкранных изображений -->
   <div class="overlay" id="overlay">
     <div class="overlay-content" id="overlayContent"></div>
   </div>
 
+  <!-- Скрипты GSAP -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
 
   <script>
 
-     const translations = {
-      en: {
-        author: "Author",
-        works: "Works",
-        pictures: "Pictures",
-        projectDescription: "NOT is a techno music festival based on melodies extracted from different plants.<br><br>The posters reveal new facets of this festival. NOT is not only a rebellious but also a serious brand.",
-        curatorLabel: "curator:",
-        curatorName: "Violetta Lukyanova",
-        link: "View the full case"
+     // === Переводы на английский и русский ===
+const translations = {
+  en: {
+    author: "Author",
+    works: "Works",
+    pictures: "Pictures",
+    projectDescription: "NOT is a techno music festival based on melodies extracted from different plants.<br><br>The posters reveal new facets of this festival. NOT is not only a rebellious but also a serious brand.",
+    curatorLabel: "curator:",
+    curatorName: "Violetta Lukyanova",
+    link: "View the full case"
+  },
+  ru: {
+    author: "Автор",
+    works: "Работы",
+    pictures: "Картины",
+    projectDescription: "NOT — это фестиваль техно-музыки, основанный на мелодиях, извлечённых из различных растений.<br><br>Постеры раскрывают новые грани этого фестиваля. NOT — это не только бунтарский,<br> но и серьёзный бренд.",
+    curatorLabel: "куратор:",
+    curatorName: "Виолетта Лукьянова",
+    link: "Посмотреть кейс полностью"
+  }
+};
+
+let currentLang = localStorage.getItem('siteLang') || 'ru';
+
+// === Обновление текста в зависимости от языка ===
+const updateLanguage = () => {
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    if (translations[currentLang][key]) {
+      el.innerHTML = translations[currentLang][key];
+    }
+  });
+  document.getElementById('langToggle').textContent = currentLang === 'ru' ? '' : '';
+};
+
+document.getElementById('langToggle')?.addEventListener('click', () => {
+  currentLang = currentLang === 'ru' ? 'en' : 'ru';
+  localStorage.setItem('siteLang', currentLang);
+  updateLanguage();
+});
+
+updateLanguage();
+
+// === GSAP инициализация и анимация кнопки ===
+gsap.registerPlugin(ScrollTrigger);
+
+const btn = document.querySelector('.main_hi');
+const images = [
+  'images/😇.png',
+  'images/🤵‍♀️.png',
+  'images/🖼.png',
+  'images/📚.png'
+];
+let currentIndex = 0;
+
+function updateButtonBackground() {
+  btn.style.backgroundImage = `url(${images[currentIndex]})`;
+}
+
+updateButtonBackground();
+
+gsap.fromTo('.main_hi', { opacity: 0 }, { opacity: 1, duration: 1, ease: "power2.out" });
+
+document.querySelectorAll('.main_hi').forEach(btn => {
+  btn.addEventListener('click', () => {
+    window.location.href = 'index.html';
+  });
+});
+
+// === Переход по кнопкам ===
+document.querySelector('.go-author')?.addEventListener('click', () => {
+  window.location.href = 'author.html';
+});
+
+document.querySelector('.go-pictures')?.addEventListener('click', () => {
+  window.location.href = 'pictures.html';
+});
+
+document.querySelector('.go-works')?.addEventListener('click', () => {
+  window.location.href = 'works.html';
+});
+
+// === Анимация постеров при скролле + lazy загрузка ===
+const posters = document.querySelectorAll('.nachinka_posters_3 img');
+posters.forEach((poster, index) => {
+  poster.setAttribute('loading', 'lazy');
+
+  gsap.fromTo(poster,
+    { opacity: 0, scale: 0.8, y: 20 },
+    {
+      opacity: 1,
+      scale: 1,
+      y: 0,
+      duration: 0.8,
+      ease: "power2.out",
+      scrollTrigger: {
+        trigger: poster,
+        start: "top 90%",
+        toggleActions: "play none none none"
       },
-      ru: {
-        author: "Автор",
-        works: "Работы",
-        pictures: "Картины",
-        projectDescription: "NOT — это фестиваль техно-музыки, основанный на мелодиях, извлечённых из различных растений.<br><br>Постеры раскрывают новые грани этого фестиваля. NOT — это не только бунтарский,<br> но и серьёзный бренд.",
-        curatorLabel: "куратор:",
-        curatorName: "Виолетта Лукьянова",
-        link: "Посмотреть кейс полностью"
-      }
-    };
-
-    let currentLang = localStorage.getItem('siteLang') || 'ru';
-
-    const updateLanguage = () => {
-      document.querySelectorAll('[data-i18n]').forEach(el => {
-        const key = el.getAttribute('data-i18n');
-        if (translations[currentLang][key]) {
-          el.innerHTML = translations[currentLang][key];
-        }
-      });
-      document.getElementById('langToggle').textContent = currentLang === 'ru' ? '' : '';
-    };
-
-    document.getElementById('langToggle')?.addEventListener('click', () => {
-      currentLang = currentLang === 'ru' ? 'en' : 'ru';
-      localStorage.setItem('siteLang', currentLang);
-      updateLanguage();
-    });
-
-    updateLanguage();
-    
-
-    // Register GSAP plugin
-    gsap.registerPlugin(ScrollTrigger);
-
-    // Button background animation
-    const btn = document.querySelector('.main_hi');
-    const images = [
-      'images/😇.png',
-      'images/🤵‍♀️.png',
-      'images/🖼.png',
-      'images/📚.png'
-    ];
-    let currentIndex = 0;
-
-    function updateButtonBackground() {
-      btn.style.backgroundImage = `url(${images[currentIndex]})`;
+      delay: index * 0.1
     }
+  );
+});
 
-    updateButtonBackground();
+// === Логика overlay при клике на постер ===
+const overlay = document.getElementById('overlay');
+const overlayContent = document.getElementById('overlayContent');
 
-    gsap.fromTo('.main_hi', 
-      { opacity: 0 },
-      { opacity: 1, duration: 1, ease: "power2.out" }
-    );
-    document.querySelectorAll('.main_hi').forEach(btn => {
-      btn.addEventListener('click', () => {
-        window.location.href = 'index.html';
-      });
+const posterSeries = {
+  1: ['images/poster1.png', 'images/poster1_2.png', 'images/poster1_3.png'],
+  2: ['images/poster2.png', 'images/poster2_2.png', 'images/poster2_3.png'],
+  3: ['images/poster3.png', 'images/poster3_2.png', 'images/poster3_3.png'],
+  4: ['images/poster4.png', 'images/poster4_2.png', 'images/poster4_3.png'],
+  5: ['images/poster5.png', 'images/poster5_2.png', 'images/poster5_3.png'],
+  6: ['images/poster6.png', 'images/poster6_2.png', 'images/poster6_3.png'],
+};
+
+posters.forEach(poster => {
+  poster.addEventListener('click', () => {
+    const series = poster.dataset.series;
+    const images = posterSeries[series] || [];
+
+    overlayContent.innerHTML = '';
+    images.forEach(src => {
+      const img = document.createElement('img');
+      img.src = src;
+      img.setAttribute('loading', 'lazy');
+      overlayContent.appendChild(img);
     });
 
-    document.querySelector('.go-author')?.addEventListener('click', () => {
-      window.location.href = 'author.html';
-    });
-
-    document.querySelector('.go-pictures')?.addEventListener('click', () => {
-      window.location.href = 'pictures.html';
-    });
-
-    document.querySelector('.go-works')?.addEventListener('click', () => {
-      window.location.href = 'works.html';
-    });
-
-
-    // Poster animations
-    const posters = document.querySelectorAll('.nachinka_posters_3 img');
-    posters.forEach((poster, index) => {
-      gsap.fromTo(poster, 
-        { opacity: 0, scale: 0.8, y: 20 },
-        { 
-          opacity: 1, 
-          scale: 1, 
-          y: 0, 
-          duration: 0.8, 
-          ease: "power2.out", 
-          scrollTrigger: {
-            trigger: poster,
-            start: "top 90%",
-            toggleActions: "play none none none"
-          },
-          delay: index * 0.1 // Staggered animation
-        }
-      );
-    });
-
-    // Overlay logic with animation
-    const overlay = document.getElementById('overlay');
-    const overlayContent = document.getElementById('overlayContent');
-
-    const posterSeries = {
-      1: ['images/poster1.png', 'images/poster1_2.png', 'images/poster1_3.png'],
-      2: ['images/poster2.png', 'images/poster2_2.png', 'images/poster2_3.png'],
-      3: ['images/poster3.png', 'images/poster3_2.png', 'images/poster3_3.png'],
-      4: ['images/poster4.png', 'images/poster4_2.png', 'images/poster4_3.png'],
-      5: ['images/poster5.png', 'images/poster5_2.png', 'images/poster5_3.png'],
-      6: ['images/poster6.png', 'images/poster6_2.png', 'images/poster6_3.png'],
-    };
-
-    posters.forEach(poster => {
-      poster.addEventListener('click', (e) => {
-        const series = poster.dataset.series;
-        const images = posterSeries[series] || [];
-        overlayContent.innerHTML = '';
-        images.forEach(src => {
-          const img = document.createElement('img');
-          img.src = src;
-          overlayContent.appendChild(img);
-        });
-
-        // Show overlay with animation
-        overlay.style.display = 'flex';
-        gsap.fromTo(overlay, 
-          { opacity: 0, backdropFilter: "blur(0px)" },
-          { 
-            opacity: 1, 
-            backdropFilter: "blur(80.95393371582031px)", 
-            duration: 0.6, 
-            ease: "power2.out" 
-          }
-        );
-
-        // Animate overlay content images
-        gsap.fromTo(overlayContent.querySelectorAll('img'),
-          { opacity: 0, y: 20 },
-          { 
-            opacity: 1, 
-            y: 0, 
-            duration: 0.6, 
-            ease: "power2.out", 
-            stagger: 0.1 
-          }
-        );
-      });
-    });
-
-    overlay.addEventListener('click', (e) => {
-      if (e.target === overlay) {
-        // Hide overlay with animation
-        gsap.to(overlay, {
-          opacity: 0,
-          backdropFilter: "blur(0px)",
-          duration: 0.6,
-          ease: "power2.in",
-          onComplete: () => {
-            overlay.style.display = 'none';
-            overlayContent.innerHTML = '';
-          }
-        });
-      }
-    });
-
-    // Scroll-triggered animations for sections
-    const animatedSections = document.querySelectorAll('body > .content-wrapper > section:not(.main_menu), .nachinka_posters > div:not(.clickable)');
-
-    animatedSections.forEach(section => {
-      gsap.from(section, {
-        opacity: 0,
-        y: 50,
-        duration: 1,
-        ease: "power2.out",
-        scrollTrigger: {
-          trigger: section,
-          start: "top 90%",
-          toggleActions: "play none none none",
-        }
-      });
-    });
-
-    // Transition to works.html
-    let isTransitioning = false;
-
-    function startTransition() {
-      if (isTransitioning) return;
-      isTransitioning = true;
-
-      document.body.style.overflow = 'hidden';
-
-      gsap.to('.content-wrapper', {
-        y: '-100vh',
-        duration: 1.5,
-        ease: 'power2.inOut',
-        onComplete: () => {
-          window.location.href = 'works.html';
-        }
-      });
-
-      gsap.to('#blurred-bg', {
-        filter: 'blur(0px)',
+    overlay.style.display = 'flex';
+    gsap.fromTo(overlay,
+      { opacity: 0, backdropFilter: "blur(0px)" },
+      {
         opacity: 1,
-        duration: 1.5,
-        ease: 'power2.inOut'
-      });
+        backdropFilter: "blur(80.95393371582031px)",
+        duration: 0.6,
+        ease: "power2.out"
+      }
+    );
 
-      gsap.to('#black-overlay', {
-        opacity: 0,
-        duration: 1.5,
-        ease: 'power2.inOut'
-      });
-    }
+    gsap.fromTo(overlayContent.querySelectorAll('img'),
+      { opacity: 0, y: 20 },
+      {
+        opacity: 1,
+        y: 0,
+        duration: 0.6,
+        ease: "power2.out",
+        stagger: 0.1
+      }
+    );
+  });
+});
 
-    // Scroll detection
-    window.addEventListener('scroll', () => {
-      const scrollTop = window.scrollY || document.documentElement.scrollTop;
-      const windowHeight = window.innerHeight || document.documentElement.clientHeight;
-      const docHeight = document.documentElement.scrollHeight;
-      const buffer = windowHeight * 0.1;
-
-      if (!isTransitioning && scrollTop + windowHeight + buffer >= docHeight) {
-        startTransition();
+overlay.addEventListener('click', (e) => {
+  if (e.target === overlay) {
+    gsap.to(overlay, {
+      opacity: 0,
+      backdropFilter: "blur(0px)",
+      duration: 0.6,
+      ease: "power2.in",
+      onComplete: () => {
+        overlay.style.display = 'none';
+        overlayContent.innerHTML = '';
       }
     });
+  }
+});
 
-    // Click trigger for immediate transition
-    document.getElementById('overlay__project_click_bottom').addEventListener('click', startTransition);
+// === Анимация секций при скролле ===
+const animatedSections = document.querySelectorAll('body > .content-wrapper > section:not(.main_menu), .nachinka_posters > div:not(.clickable)');
+
+animatedSections.forEach(section => {
+  gsap.from(section, {
+    opacity: 0,
+    y: 50,
+    duration: 1,
+    ease: "power2.out",
+    scrollTrigger: {
+      trigger: section,
+      start: "top 90%",
+      toggleActions: "play none none none",
+    }
+  });
+});
+
+// === Переход на works.html при скролле в конец страницы ===
+let isTransitioning = false;
+
+function startTransition() {
+  if (isTransitioning) return;
+  isTransitioning = true;
+
+  document.body.style.overflow = 'hidden';
+
+  gsap.to('.content-wrapper', {
+    y: '-100vh',
+    duration: 1.5,
+    ease: 'power2.inOut',
+    onComplete: () => {
+      window.location.href = 'works.html';
+    }
+  });
+
+  gsap.to('#blurred-bg', {
+    filter: 'blur(0px)',
+    opacity: 1,
+    duration: 1.5,
+    ease: 'power2.inOut'
+  });
+
+  gsap.to('#black-overlay', {
+    opacity: 0,
+    duration: 1.5,
+    ease: 'power2.inOut'
+  });
+}
+
+window.addEventListener('scroll', () => {
+  const scrollTop = window.scrollY || document.documentElement.scrollTop;
+  const windowHeight = window.innerHeight || document.documentElement.clientHeight;
+  const docHeight = document.documentElement.scrollHeight;
+  const buffer = windowHeight * 0.1;
+
+  if (!isTransitioning && scrollTop + windowHeight + buffer >= docHeight) {
+    startTransition();
+  }
+});
+
+// === Клик по нижней зоне для ручного перехода ===
+document.getElementById('overlay__project_click_bottom').addEventListener('click', startTransition);
+
   </script>
 </body>
 </html>
