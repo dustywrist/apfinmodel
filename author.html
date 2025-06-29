@@ -135,11 +135,6 @@
       });
     });
 
-    modal.addEventListener('click', () => {
-      modal.style.display = 'none';
-      modalContent.innerHTML = '';
-    });
-
     // ==== Меню переходы ====
     document.querySelector('.main_hi')?.addEventListener('click', () => {
       window.location.href = 'index.html';
@@ -157,7 +152,7 @@
     // ==== Перевод ====
     const translations = {
       ru: {
-        description: "Я занимаюсь дизайном около года. Знаю, как работать с интерфейсами и брендингом. Люблю работать в команде и стремлюсь стать её частью.",
+        description: "Занимаюсь дизайном около года. Интересуюсь работой с интерфейсами и брендингом. Люблю людей и стремлюсь стать частью заряженной команды.",
         photoBg: "images/image_ru_works.png",
         menu: {
           author: "Автор",
@@ -235,6 +230,46 @@ gsap.fromTo('.main_hi',
       ease: "power2.out",
       delay: 1
     });
+
+
+
+// Показываем
+document.querySelectorAll('.media-container').forEach(el => {
+  el.addEventListener('click', () => {
+    const media = el.querySelector('img, video');
+    if (!media) return;
+
+    if (media.tagName === 'IMG') {
+      modalContent.innerHTML = `<img src="${media.src}" />`;
+    } else {
+      modalContent.innerHTML = `<video src="${media.src}" autoplay loop muted controls></video>`;
+    }
+
+    modal.style.display = 'flex';
+    gsap.to(modal, {
+      duration: 0.5,
+      opacity: 1,
+      pointerEvents: 'auto',
+      ease: 'power2.out'
+    });
+  });
+});
+
+// Скрываем с анимацией
+modal.addEventListener('click', () => {
+  gsap.to(modal, {
+    duration: 0.5,
+    opacity: 0,
+    pointerEvents: 'none',
+    ease: 'power2.in',
+    onComplete: () => {
+      modalContent.innerHTML = '';
+      modal.style.display = 'none';
+    }
+  });
+});
+
+
   </script>
 
 </body>

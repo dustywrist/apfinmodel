@@ -1,4 +1,4 @@
-!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -8,21 +8,377 @@
   <link rel="icon" type="image/x-icon" href="images/favicon.png" />
   <link rel="stylesheet" href="stylesheets/style.css" />
   <title>NOT</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      overflow-x: hidden;
+      background-color: #ffffff;
+      height: 150vh;
+      position: relative;
+    }
+
+    .main_menu {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 1000;
+      padding: 1vw 0;
+    }
+
+    .media {
+      position: absolute;
+      object-fit: cover;
+      max-width: 80vw;
+      max-height: 40vh;
+      width: auto;
+      height: auto;
+      opacity: 1;
+      z-index: 2;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+      transition: transform 0.3s ease;
+    }
+
+    .media:hover {
+      transform: scale(1.1);
+      z-index: 3;
+    }
+
+    .fullscreen-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  backdrop-filter: blur(10px);
+  background-color: rgba(0, 0, 0, 0.6);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.fullscreen-content {
+  max-width: 90vw;
+  max-height: 90vh;
+  border-radius: 8px;
+  box-shadow: 0 0 20px rgba(0,0,0,0.5);
+  z-index: 10000;
+}
+
+  </style>
 </head>
 
+<div id="fullscreen-viewer" style="display: none;"></div>
 
 <body>
+  <iframe id="blurred-bg" src="works.html" style="
+    position: fixed;
+    top: 0; left: 0; width: 100vw; height: 100vh;
+    pointer-events: none;
+    filter: blur(100px);
+    opacity: 0.5;
+    z-index: 0;
+    transform: scale(1.05);
+    user-select: none;
+  "></iframe>
 
-  <section class="background_v1">
-    <div class="background">
-      <img src="images/screen_1_5.png" class="floating" id="small_5" />
-      <img src="images/screen_1_4.png" class="floating" id="small_1" />
-      <img src="images/screen_1_3.png" class="floating" id="small_4" />
-      <img src="images/screen_1_6.png" class="floating" id="small_3" />
-      <img src="images/screen_1_1.png" class="floating" id="small_6" />
-      <img src="images/screen_1_2.png" class="floating" id="small_2" />
-    </div>
+  <div id="black-overlay" style="
+    position: fixed;
+    top: 0; left: 0; width: 100vw; height: 100vh;
+    background: rgba(0, 0, 0, 0.3);
+    pointer-events: none;
+    z-index: 1;
+  "></div>
+
+  <section class="main_menu">
+    <section class="hi_to_hi">
+      <button class="main_hi" id="langToggle" data-i18n="lang"></button>
+    </section>
+
+    <section class="three_words_meny">
+      <button class="go-author" data-i18n="author">Author</button>
+      <button class="go-works" data-i18n="works">Works</button>
+      <button class="go-pictures" data-i18n="pictures">Pictures</button>
+    </section>
   </section>
 
-  </body>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+  <script>
+    const mediaSources = [
+      { type: 'img', src: 'images/picture_gallery_1.png' },
+      { type: 'img', src: 'images/picture_gallery_2.png' },
+      { type: 'img', src: 'images/picture_gallery_4.png' },
+      { type: 'img', src: 'images/picture_gallery_5.png' },
+      { type: 'img', src: 'images/picture_gallery_6.png' },
+      { type: 'img', src: 'images/picture_gallery_8.png' },
+      { type: 'img', src: 'images/picture_gallery_9.png' },
+      { type: 'img', src: 'images/picture_gallery_10.png' },
+      { type: 'img', src: 'images/picture_gallery_11.png' },
+      { type: 'video', src: 'images/2025-05-31 23.54.01.mp4' },
+      { type: 'video', src: 'images/posters_1.mp4' },
+      { type: 'video', src: 'images/picture_gallery_13.mp4' },
+      { type: 'video', src: 'images/picture_gallery_14.mp4' },
+      { type: 'video', src: 'images/picture_gallery_15.mp4' },
+    ];
+
+    // Shuffle array for random order
+    function shuffle(array) {
+      for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+      }
+      return array;
+    }
+
+    const placedRects = [];
+
+    function overlaps(r1, r2) {
+      const buffer = Math.max(2 * window.innerWidth / 100, 10); // 2vw buffer
+      return !(r2.left > r1.right + buffer ||
+               r2.right < r1.left - buffer ||
+               r2.top > r1.bottom + buffer ||
+               r2.bottom < r1.top - buffer);
+    }
+
+    function findFreePosition(width, height, maxAttempts = 200) {
+      const menuHeight = document.querySelector('.main_menu').offsetHeight || 50;
+      const buffer = Math.max(2 * window.innerWidth / 100, 10);
+      const maxW = window.innerWidth - buffer;
+      const maxH = document.body.scrollHeight - menuHeight - buffer;
+
+      for (let i = 0; i < maxAttempts; i++) {
+        const left = Math.random() * (maxW - width);
+        const top = menuHeight + Math.random() * (maxH - height);
+        const newRect = {
+          left,
+          top,
+          right: left + width + buffer,
+          bottom: top + height + buffer,
+        };
+
+        if (!placedRects.some(rect => overlaps(rect, newRect))) {
+          placedRects.push(newRect);
+          return { left, top };
+        }
+      }
+
+      // Fallback: Reduce size and retry
+      if (width > 100 && height > 100) {
+        return findFreePosition(width * 0.8, height * 0.8, maxAttempts);
+      }
+      return null;
+    }
+
+    function createMediaElement(media) {
+      const maxW = window.innerWidth * 0.4;
+      const maxH = window.innerHeight * 0.4;
+      const minSize = Math.min(200, window.innerWidth * 0.4);
+      let width = minSize + Math.random() * (maxW - minSize);
+      let height = minSize + Math.random() * (maxH - minSize);
+
+      const position = findFreePosition(width, height);
+      if (!position) {
+        console.warn(`Could not place media: ${media.src}`);
+        return;
+      }
+
+      let el;
+      if (media.type === 'img') {
+        el = document.createElement('img');
+        el.src = media.src;
+        el.onerror = () => console.error(`Failed to load image: ${media.src}`);
+      } else if (media.type === 'video') {
+        el = document.createElement('video');
+        el.src = media.src;
+        el.autoplay = true;
+        el.loop = true;
+        el.muted = true;
+        el.playsInline = true; // Ensures video plays on mobile
+        el.onerror = () => console.error(`Failed to load video: ${media.src}`);
+      }
+
+   el.className = 'media';
+el.style.maxWidth = `${width}px`;
+el.style.maxHeight = `${height}px`;
+el.style.left = `${position.left}px`;
+el.style.top = `${position.top}px`;
+
+document.body.appendChild(el);
+
+// Scroll-triggered анимация
+gsap.from(el, {
+  scrollTrigger: {
+    trigger: el,
+    start: "top 90%",
+    toggleActions: "play none none none",
+  },
+  opacity: 0,
+  
+  duration: 1,
+  ease: "power2.out",
+});
+
+    }
+
+    function placeMedia() {
+      placedRects.length = 0;
+      document.querySelectorAll('.media').forEach(el => el.remove());
+      const shuffledMedia = shuffle([...mediaSources]);
+      shuffledMedia.forEach(media => createMediaElement(media));
+    }
+
+    // Debounce resize to improve performance
+    let resizeTimeout;
+    function debouncePlaceMedia() {
+      clearTimeout(resizeTimeout);
+      resizeTimeout = setTimeout(placeMedia, 200);
+    }
+
+    placeMedia();
+    window.addEventListener('resize', debouncePlaceMedia);
+
+    // Button image toggle
+    const btn = document.querySelector('.main_hi');
+    const images = ['images/🖼.png'];
+    let currentIndex = 0;
+
+    function updateButtonBackground() {
+      btn.style.backgroundImage = `url(${images[currentIndex]})`;
+    }
+
+    updateButtonBackground();
+
+    btn.addEventListener('click', () => {
+      currentIndex = (currentIndex + 1) % images.length;
+      updateButtonBackground();
+      window.location.href = 'index.html';
+    });
+
+    // Navigation
+    document.querySelector('.go-author')?.addEventListener('click', () => {
+      window.location.href = 'author.html';
+    });
+
+    document.querySelector('.go-pictures')?.addEventListener('click', () => {
+      window.location.href = 'pictures.html';
+    });
+
+    document.querySelector('.go-works')?.addEventListener('click', () => {
+      window.location.href = 'works.html';
+    });
+
+    // Localization
+    const translations = {
+      ru: { author: "Автор", works: "Работы", pictures: "Картинки" },
+      en: { author: "Author", works: "Works", pictures: "Pictures" },
+    };
+
+    let currentLang = localStorage.getItem('siteLang') || 'en';
+
+    function updateLanguage() {
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (translations[currentLang][key]) {
+          el.textContent = translations[currentLang][key];
+        }
+      });
+    }
+
+    document.getElementById('langToggle').addEventListener('click', () => {
+      currentLang = currentLang === 'ru' ? 'en' : 'ru';
+      localStorage.setItem('siteLang', currentLang);
+      updateLanguage();
+    });
+
+    updateLanguage();
+
+    gsap.fromTo('.main_hi', { opacity: 0 }, { opacity: 1, duration: 1, ease: "power2.out" });
+
+   let isStacked = false;
+const originalPositions = new Map();
+
+function toggleStackLayout() {
+  const mediaElements = document.querySelectorAll('.media');
+
+  if (!isStacked) {
+    // Сохраняем исходные позиции
+    mediaElements.forEach(el => {
+      originalPositions.set(el, {
+        left: el.style.left,
+        top: el.style.top,
+      });
+    });
+
+    // Центрируем по горизонтали, выстраиваем вертикально
+    let currentTop = 100; 
+    let currentBottom = 100;// отступ сверху
+    const margin = 10;
+
+    mediaElements.forEach(el => {
+      const rect = el.getBoundingClientRect();
+      const width = rect.width;
+
+      el.style.transition = 'all 0.5s ease';
+      el.style.left = `${(window.innerWidth - width) / 2}px`;
+      el.style.top = `${currentTop}px`;
+
+      currentTop += rect.height + margin;
+    });
+
+    isStacked = true;
+  } else {
+    // Возврат к исходным позициям
+    mediaElements.forEach(el => {
+      const pos = originalPositions.get(el);
+      if (pos) {
+        el.style.transition = 'all 0.5s ease';
+        el.style.left = pos.left;
+        el.style.top = pos.top;
+      }
+    });
+
+    isStacked = false;
+  }
+}
+
+// Клик по пустому месту на странице
+document.body.addEventListener('click', e => {
+  if (!e.target.classList.contains('media')) {
+    toggleStackLayout();
+  }
+});
+
+const fullscreenViewer = document.getElementById('fullscreen-viewer');
+
+function openFullscreen(media) {
+  fullscreenViewer.innerHTML = ''; // очистить старый контент
+  fullscreenViewer.style.display = 'flex';
+  fullscreenViewer.className = 'fullscreen-overlay';
+
+  const cloned = media.cloneNode(true);
+  cloned.className = 'fullscreen-content';
+
+  if (cloned.tagName === 'VIDEO') {
+    cloned.controls = true;
+    cloned.autoplay = true;
+    cloned.muted = false;
+  }
+
+  fullscreenViewer.appendChild(cloned);
+}
+
+document.body.addEventListener('click', e => {
+  if (e.target.classList.contains('media')) {
+    openFullscreen(e.target);
+  } else if (fullscreenViewer.style.display === 'flex') {
+    fullscreenViewer.style.display = 'none';
+    fullscreenViewer.innerHTML = '';
+  }
+});
+
+  </script>
+</body>
 </html>
