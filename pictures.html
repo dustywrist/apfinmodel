@@ -16,37 +16,29 @@
       padding: 0;
       overflow-x: hidden;
       background-color: #ffffff;
-      height: 150vh;
+      height: 100vh;
       position: relative;
-    }
-
-    /* Главное меню */
-    .main_menu {
-      position: fixed;
-      top: 0;
-      width: 100%;
-      z-index: 1000;
-      padding: 1vw 0;
+      cursor: pointer;
     }
 
     /* Стили для изображений и видео */
     .media {
       position: absolute;
-      object-fit: cover;
-      max-width: 80vw;
-      max-height: 40vh;
-      width: auto;
-      height: auto;
+      object-fit: contain;
       opacity: 1;
       z-index: 2;
-      border-radius: 8px;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-      transition: transform 0.3s ease;
+      border-radius: 16px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      transition: transform 0.5s ease, opacity 0.5s ease;
+      transform-origin: center;
+      pointer-events: auto;
+      will-change: transform;
     }
 
     .media:hover {
-      transform: scale(1.1);
+      transform: scale(1.05);
       z-index: 3;
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
     }
 
     /* Полноэкранный просмотр */
@@ -67,15 +59,31 @@
     .fullscreen-content {
       max-width: 90vw;
       max-height: 90vh;
-      border-radius: 8px;
+      border-radius: 12px;
       box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
       z-index: 10000;
     }
 
-    @media (max-width: 1024px) and (min-width: 768px) {
-      .body {
-           height: 110vh;
+    
+    /* Адаптивные стили */
+    @media (max-width: 1024px) {
+      .media {
+        border-radius: 12px;
+        box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
       }
+    }
+
+    @media (max-width: 768px) {
+      .media {
+        border-radius: 8px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      }
+    }
+
+    /* Главное меню */
+    .main_menu {
+      position: fixed;
+      z-index: 10;
     }
   </style>
 </head>
@@ -99,6 +107,9 @@
     </section>
   </section>
 
+  <!-- Контейнер для медиа -->
+  <div id="media-container"></div>
+
   <!-- Контейнер для полноэкранного просмотра -->
   <div id="fullscreen-viewer" style="display: none;"></div>
 
@@ -107,7 +118,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
 
   <script>
-    // Источники медиа
+    // Медиа-файлы
     const mediaSources = [
       { type: 'img', src: 'images/picture_gallery_1.png' },
       { type: 'img', src: 'images/picture_gallery_2.png' },
@@ -125,118 +136,223 @@
       { type: 'video', src: 'images/picture_gallery_15.mp4' },
     ];
 
-    // Перемешивание элементов
-    function shuffle(array) {
-      for (let i = array.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [array[i], array[j]] = [array[j], array[i]];
-      }
-      return array;
-    }
+    // Состояние
+    let isOrganized = false;
+    let originalPositions = [];
+    const mediaElements = [];
+    const mediaContainer = document.getElementById('media-container');
+    const body = document.body;
 
-    const placedRects = [];
+    // Инициализация медиа
+    function initializeMedia() {
+      mediaContainer.innerHTML = '';
+      mediaElements.length = 0;
+      originalPositions.length = 0;
 
-    function overlaps(r1, r2) {
-      const buffer = Math.max(2 * window.innerWidth / 100, 10);
-      return !(r2.left > r1.right + buffer ||
-               r2.right < r1.left - buffer ||
-               r2.top > r1.bottom + buffer ||
-               r2.bottom < r1.top - buffer);
-    }
+      mediaSources.forEach((media, index) => {
+        const element = document.createElement(media.type);
+        element.src = media.src;
+        element.classList.add('media');
+        element.dataset.index = index;
 
-    function findFreePosition(width, height, maxAttempts = 200) {
-      const menuHeight = document.querySelector('.main_menu').offsetHeight || 50;
-      const buffer = Math.max(2 * window.innerWidth / 100, 10);
-      const maxW = window.innerWidth - buffer;
-      const maxH = document.body.scrollHeight - menuHeight - buffer;
-
-      for (let i = 0; i < maxAttempts; i++) {
-        const left = Math.random() * (maxW - width);
-        const top = menuHeight + Math.random() * (maxH - height);
-        const newRect = {
-          left,
-          top,
-          right: left + width + buffer,
-          bottom: top + height + buffer,
-        };
-        if (!placedRects.some(rect => overlaps(rect, newRect))) {
-          placedRects.push(newRect);
-          return { left, top };
+        if (media.type === 'video') {
+          element.loop = true;
+          element.muted = true;
+          element.autoplay = true;
+          element.playsInline = true;
         }
-      }
 
-      if (width > 100 && height > 100) {
-        return findFreePosition(width * 0.8, height * 0.8, maxAttempts);
-      }
-      return null;
-    }
-
-    // Создание и размещение медиаэлементов
-    function createMediaElement(media) {
-      const maxW = window.innerWidth * 0.4;
-      const maxH = window.innerHeight * 0.4;
-      const minSize = Math.min(200, window.innerWidth * 0.4);
-      let width = minSize + Math.random() * (maxW - minSize);
-      let height = minSize + Math.random() * (maxH - minSize);
-
-      const position = findFreePosition(width, height);
-      if (!position) return;
-
-      let el;
-      if (media.type === 'img') {
-        el = document.createElement('img');
-        el.src = media.src;
-        el.loading = "lazy";
-      } else if (media.type === 'video') {
-        el = document.createElement('video');
-        el.src = media.src;
-        el.autoplay = true;
-        el.loop = true;
-        el.muted = true;
-        el.playsInline = true;
-        el.loading = "lazy";
-      }
-
-      el.className = 'media';
-      el.style.maxWidth = `${width}px`;
-      el.style.maxHeight = `${height}px`;
-      el.style.left = `${position.left}px`;
-      el.style.top = `${position.top}px`;
-
-      document.body.appendChild(el);
-
-      gsap.from(el, {
-        scrollTrigger: {
-          trigger: el,
-          start: "top 90%",
-          toggleActions: "play none none none",
-        },
-        opacity: 0,
-        duration: 1,
-        ease: "power2.out",
+        mediaContainer.appendChild(element);
+        mediaElements.push(element);
       });
 
-      el.addEventListener('click', () => openFullscreen(el));
+      positionMediaRandomly();
     }
 
-    // Размещение всех медиаэлементов
-    function placeMedia() {
-      placedRects.length = 0;
-      document.querySelectorAll('.media').forEach(el => el.remove());
-      const shuffledMedia = shuffle([...mediaSources]);
-      shuffledMedia.forEach(media => createMediaElement(media));
+    // Случайное расположение медиа
+    function positionMediaRandomly() {
+      const viewportWidth = window.innerWidth;
+      const viewportHeight = window.innerHeight;
+      const padding = 50;
+
+      mediaElements.forEach((element, index) => {
+        // Загружаем медиа, чтобы получить его размеры
+        element.onload = element.onloadedmetadata = function() {
+          const naturalWidth = element.naturalWidth || element.videoWidth || element.width;
+          const naturalHeight = element.naturalHeight || element.videoHeight || element.height;
+          const aspectRatio = naturalWidth / naturalHeight;
+
+          // Определяем максимальные размеры в зависимости от устройства
+          let maxWidth, maxHeight;
+          if (window.innerWidth <= 768) { // Mobile
+            maxWidth = viewportWidth * 0.7;
+            maxHeight = viewportHeight * 0.3;
+          } else if (window.innerWidth <= 1024) { // Tablet
+            maxWidth = viewportWidth * 0.5;
+            maxHeight = viewportHeight * 0.4;
+          } else { // Desktop
+            maxWidth = viewportWidth * 0.4;
+            maxHeight = viewportHeight * 0.5;
+          }
+
+          // Сохраняем оригинальные пропорции
+          let width, height;
+          if (naturalWidth > naturalHeight) {
+            width = Math.min(maxWidth, naturalWidth);
+            height = width / aspectRatio;
+          } else {
+            height = Math.min(maxHeight, naturalHeight);
+            width = height * aspectRatio;
+          }
+
+          // Случайный масштаб (0.7 - 1.3)
+          const scale = 0.7 + Math.random() * 0.6;
+          const scaledWidth = width * scale;
+          const scaledHeight = height * scale;
+
+          // Случайная позиция с учетом границ
+          const left = padding + Math.random() * (viewportWidth - scaledWidth - padding * 2);
+          const top = padding + Math.random() * (viewportHeight - scaledHeight - padding * 2);
+
+          // Случайный поворот (-15 до 15 градусов)
+          const rotation = -15 + Math.random() * 30;
+
+          // Сохраняем оригинальную позицию
+          originalPositions[index] = {
+            left,
+            top,
+            width: scaledWidth,
+            height: scaledHeight,
+            rotation,
+            scale
+          };
+
+          // Применяем стили
+          element.style.width = `${scaledWidth}px`;
+          element.style.height = `${scaledHeight}px`;
+          element.style.left = `${left}px`;
+          element.style.top = `${top}px`;
+          element.style.transform = `rotate(${rotation}deg)`;
+
+          // Добавляем обработчик клика для полноэкранного просмотра
+          element.addEventListener('click', function(e) {
+            e.stopPropagation();
+            showFullscreen(media.type, media.src);
+          });
+        };
+      });
     }
 
-    // Обработка изменения размера окна
-    let resizeTimeout;
-    function debouncePlaceMedia() {
-      clearTimeout(resizeTimeout);
-      resizeTimeout = setTimeout(placeMedia, 200);
+    // Организация медиа по центру
+    function organizeMedia() {
+      const viewportWidth = window.innerWidth;
+      const viewportHeight = window.innerHeight;
+      const centerX = viewportWidth / 2;
+      const spacing = 20;
+      let currentY = 50;
+
+      mediaElements.forEach((element, index) => {
+        const original = originalPositions[index];
+        const aspectRatio = original.width / original.height;
+        
+        // Новые размеры для организованного вида
+        let newWidth = Math.min(viewportWidth * 0.6, original.width);
+        let newHeight = newWidth / aspectRatio;
+
+        // Если высота слишком большая, уменьшаем
+        if (newHeight > viewportHeight * 0.4) {
+          newHeight = viewportHeight * 0.4;
+          newWidth = newHeight * aspectRatio;
+        }
+
+        // Позиционирование по вертикали
+        const newLeft = centerX - newWidth / 2;
+        const newTop = currentY;
+
+        // Анимация с GSAP
+        gsap.to(element, {
+          left: newLeft,
+          top: newTop,
+          width: newWidth,
+          height: newHeight,
+          rotation: 0,
+          duration: 0.8,
+          ease: "power2.out"
+        });
+
+        currentY += newHeight + spacing;
+      });
     }
 
-    // Инициализация
-    placeMedia();
-    window.addEventListener('resize', debouncePlaceMedia);
+    // Восстановление случайного расположения
+    function restoreRandomPositions() {
+      mediaElements.forEach((element, index) => {
+        const original = originalPositions[index];
+        gsap.to(element, {
+          left: original.left,
+          top: original.top,
+          width: original.width,
+          height: original.height,
+          rotation: original.rotation,
+          duration: 0.8,
+          ease: "power2.out"
+        });
+      });
+    }
+
+    // Переключение между состояниями
+    function toggleMediaOrganization() {
+      if (isOrganized) {
+        restoreRandomPositions();
+      } else {
+        organizeMedia();
+      }
+      isOrganized = !isOrganized;
+    }
+
+    // Полноэкранный просмотр
+    function showFullscreen(type, src) {
+      const viewer = document.getElementById('fullscreen-viewer');
+      viewer.innerHTML = '';
+
+      const overlay = document.createElement('div');
+      overlay.className = 'fullscreen-overlay';
+      
+      const content = document.createElement(type);
+      content.className = 'fullscreen-content';
+      content.src = src;
+
+      if (type === 'video') {
+        content.controls = true;
+        content.loop = true;
+        content.autoplay = true;
+      }
+
+      overlay.appendChild(content);
+      viewer.appendChild(overlay);
+      viewer.style.display = 'block';
+
+      // Закрытие по клику
+      overlay.addEventListener('click', function(e) {
+        if (e.target === overlay) {
+          viewer.style.display = 'none';
+        }
+      });
+    }
+
+    // Обработчик клика по свободному месту
+    body.addEventListener('click', function(e) {
+      if (e.target === body || e.target === mediaContainer) {
+        toggleMediaOrganization();
+      }
+    });
+
+    // Обработчик изменения размера окна
+    window.addEventListener('resize', function() {
+      if (!isOrganized) {
+        positionMediaRandomly();
+      }
+    });
 
     // Смена изображения кнопки
     const btn = document.querySelector('.main_hi');
@@ -288,58 +404,8 @@
     // Анимация появления кнопки
     gsap.fromTo('.main_hi', { opacity: 0 }, { opacity: 1, duration: 1, ease: "power2.out" });
 
-    // Переключение между стеками
-    let isStacked = false;
-    const originalPositions = new Map();
-
-    function toggleStackLayout() {
-      const mediaElements = document.querySelectorAll('.media');
-
-      if (!isStacked) {
-        mediaElements.forEach(el => {
-          originalPositions.set(el, {
-            left: el.style.left,
-            top: el.style.top,
-          });
-        });
-
-        let currentTop = 100;
-        const margin = 10;
-
-        mediaElements.forEach(el => {
-          const rect = el.getBoundingClientRect();
-          const width = rect.width;
-
-          el.style.transition = 'all 0.5s ease';
-          el.style.left = `${(window.innerWidth - width) / 2}px`;
-          el.style.top = `${currentTop}px`;
-
-          currentTop += rect.height + margin;
-        });
-
-        isStacked = true;
-      } else {
-        mediaElements.forEach(el => {
-          const pos = originalPositions.get(el);
-          if (pos) {
-            el.style.transition = 'all 0.5s ease';
-            el.style.left = pos.left;
-            el.style.top = pos.top;
-          }
-        });
-
-        isStacked = false;
-      }
-    }
-
-    // Клик по фону для активации стека
-    document.body.addEventListener('click', e => {
-      if (!e.target.classList.contains('media')) {
-        toggleStackLayout();
-      }
-    });
-
-
+    // Инициализация медиа при загрузке
+    window.addEventListener('DOMContentLoaded', initializeMedia);
   </script>
 </body>
 </html>
