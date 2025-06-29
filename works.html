@@ -245,6 +245,13 @@ margin: 125vw auto;
 }
 
 }
+
+@media (max-width: 1024px) {
+  .panel:hover .panel_video {
+    opacity: 0 !important;
+  }
+}
+
   </style>
 </head>
 <body>
@@ -366,24 +373,27 @@ window.addEventListener("resize", () => {
 
     // Наведение на панель — воспроизведение видео
     const panels = document.querySelectorAll(".panel");
-    panels.forEach(panel => {
-      const video = panel.querySelector(".panel_video");
-      panel.addEventListener("mouseenter", () => {
-        if (video) {
-          video.style.opacity = "1";
-          video.play();
-        }
-      });
-      panel.addEventListener("mouseleave", () => {
-        if (video) {
-          video.style.opacity = "0";
-          setTimeout(() => {
-            video.pause();
-            video.currentTime = 0;
-          }, 600);
-        }
-      });
+ if (window.innerWidth > 1024) {
+  panels.forEach(panel => {
+    const video = panel.querySelector(".panel_video");
+    panel.addEventListener("mouseenter", () => {
+      if (video) {
+        video.style.opacity = "1";
+        video.play();
+      }
     });
+    panel.addEventListener("mouseleave", () => {
+      if (video) {
+        video.style.opacity = "0";
+        setTimeout(() => {
+          video.pause();
+          video.currentTime = 0;
+        }, 600);
+      }
+    });
+  });
+}
+
 
     // Переходы по панелям
     document.querySelector('.panel_1')?.addEventListener('click', () => {
