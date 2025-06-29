@@ -117,6 +117,52 @@ body {
 }
 
 
+ @media (max-width: 1024px) and (min-width: 768px) {
+    /* Контейнер работ теперь вертикальный */
+    .my_works {
+      flex-direction: column;
+      width: 100vw;
+      height: auto;
+      scroll-snap-type: none;
+      overflow-x: hidden;
+      overflow-y: auto;
+    }
+
+    /* Все панели теперь 100% ширины */
+    .panel {
+      width: 100vw !important;
+      height: 100vh;
+    }
+
+    /* Кнопка занимает всю ширину и центрируется */
+    .button_1 {
+    position: relative;
+    display: block;
+    margin: 124vw auto;
+    width: 90vw;
+    text-align: center;
+    padding: 1rem 1.5rem;
+    font-size: 1.1rem;
+    border-radius: 1rem;
+    white-space: normal; /* позволяет перенос текста */
+    line-height: 1.4;
+    max-width: 100%;
+  }
+    /* Отключаем горизонтальный scrollTrigger */
+    body {
+      width: 100vw;
+    }
+
+    /* Для видео — также адаптируем */
+    .panel_video {
+      position: relative;
+      width: 100%;
+      height: auto;
+    }
+  }
+
+
+
   </style>
 </head>
 <body>
@@ -302,6 +348,34 @@ body {
         ease: "power2.out"
       }
     );
+ function initScrollTrigger() {
+    if (window.innerWidth > 1024) {
+      // Только на десктопах включаем ScrollTrigger
+      gsap.registerPlugin(ScrollTrigger);
+
+      gsap.to(".my_works", {
+        xPercent: -28.5,
+        ease: "none",
+        scrollTrigger: {
+          trigger: ".my_works",
+          pin: true,
+          scrub: 1,
+          snap: 1 / 2,
+          end: () => "+=" + document.querySelector(".my_works").offsetWidth
+        }
+      });
+    } else {
+      // Удаляем все активные ScrollTrigger при мобильной версии
+      if (ScrollTrigger.getAll().length > 0) {
+        ScrollTrigger.getAll().forEach(trigger => trigger.kill());
+        gsap.set(".my_works", { clearProps: "all" }); // сброс transform, width и т.д.
+      }
+    }
+  }
+
+  window.addEventListener('load', initScrollTrigger);
+  window.addEventListener('resize', initScrollTrigger);
+
   </script>
 
 </body>

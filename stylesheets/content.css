@@ -164,3 +164,101 @@ body {
   font-family: "Regular", sans-serif;
   gap: 1.5vw;
 }
+
+@media (max-width: 1024px) and (min-width: 768px) {
+  
+/* Главное меню */
+.main_menu {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  color: white;
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  padding: 1rem 0;
+  z-index: 1000;
+  font-family: "Regular";
+}
+
+/* Контейнер с тремя кнопками меню */
+.three_words_meny {
+  display: flex;
+  gap: 22vw;
+}
+
+/* Общие стили для меню и блока переключения языка */
+.three_words_meny,
+.hi_to_hi {
+  background: rgba(53, 52, 52, 0.6);
+  backdrop-filter: blur(100vw);
+  border-radius: 10px;
+  padding: 0.5rem 1rem;
+  color: white;
+  font-size: 1rem;
+  cursor: pointer;
+  border: none;
+}
+
+/* Кнопки главного меню */
+.main_menu button {
+  background: none;
+  border: none;
+  padding: 0.5rem 1rem;
+  color: white;
+  font-size: 1rem;
+  cursor: pointer;
+  background-size: 4vw;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+/* Блок переключения языка */
+.hi_to_hi {
+  padding: 0.8rem;
+  background-size: 4vw;
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 4vw;
+  height: 4vw;
+}
+
+/* Кнопка переключения языка */
+.main_hi {
+  width: 100%;
+  height: 100%;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  cursor: pointer;
+  padding: 0;
+  border: none;
+  box-sizing: border-box;
+}
+
+.basic_text_1 {
+  font-size: 3vw;
+}
+
+.opisanie_proekta {
+    width: 70vw;
+}
+
+.curator {
+  font-size: 1.5vw;
+
+}
+
+
+.name_of_curator {
+  font-size: 2vw;
+}
+
+.loliki {
+  font-size: 2vw;
+}
+
+
+
+}
