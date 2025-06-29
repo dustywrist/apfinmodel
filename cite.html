@@ -77,10 +77,6 @@ body {
   top: 40%;
 }
 
-/* Отступ сверху для описания проекта */
-.opisanie_proekta_2 {
-  margin-top: 30vh;
-}
 
 /* Кнопки управления каруселью */
 .flickity-button {
@@ -171,7 +167,15 @@ body {
   cursor: pointer;
   z-index: 10;
 }
+@media (max-width: 1024px) and (min-width: 768px) {
 
+.flickity-prev-next-button {
+    width: 6vw;
+    height: 6vw;
+
+}
+
+}
   </style>
 </head>
 
@@ -212,7 +216,7 @@ body {
     </section>
 
     <!-- Описание проекта -->
-    <section class="opisanie_proekta_2">
+    <section class="opisanie_proekta">
       <div class="basic_text_1" data-i18n="projectDescription">
         На веб-постере вы сможете посмотреть последние записанные сеты созданной компании, познакомиться с автором.
       </div>

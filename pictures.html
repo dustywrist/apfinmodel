@@ -333,25 +333,6 @@
       }
     });
 
-    // Полноэкранный просмотр
-    const fullscreenViewer = document.getElementById('fullscreen-viewer');
-
-    function openFullscreen(media) {
-      fullscreenViewer.innerHTML = '';
-      fullscreenViewer.style.display = 'flex';
-      fullscreenViewer.className = 'fullscreen-overlay';
-
-      const cloned = media.cloneNode(true);
-      cloned.className = 'fullscreen-content';
-
-      if (cloned.tagName === 'VIDEO') {
-        cloned.controls = true;
-        cloned.autoplay = true;
-        cloned.muted = false;
-      }
-
-      fullscreenViewer.appendChild(cloned);
-    }
   </script>
 </body>
 </html>

@@ -1,13 +1,12 @@
-/* Общие стили для body */
 body {
-  margin: 0;
-  padding: 0;
-  overflow-x: hidden;
-  background-color: #ffffff;
-  height: 100vh; /* чтобы был скролл */
-}
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    background-color: #ffffff;
+    height: 100vh; /* чтобы был скролл */
+  }
+  
 
-/* Главное меню */
 .main_menu {
   position: fixed;
   top: 0;
@@ -20,28 +19,27 @@ body {
   padding: 1rem 0;
   z-index: 1000;
   font-family: "Regular";
+  
 }
 
-/* Контейнер с тремя кнопками меню */
 .three_words_meny {
   display: flex;
   gap: 6vw;
 }
 
-/* Общие стили для меню и блока переключения языка */
 .three_words_meny,
 .hi_to_hi {
-  background: rgba(53, 52, 52, 0.6);
-  backdrop-filter: blur(100vw);
+  background: rgba(53, 52, 52, 0.60);
+       backdrop-filter: blur(100vw);
+         border: 1px solid rgba(190, 190, 190, 0.3);
+  border: none;
   border-radius: 10px;
   padding: 0.5rem 1rem;
   color: white;
   font-size: 1rem;
   cursor: pointer;
-  border: none;
 }
 
-/* Кнопки главного меню */
 .main_menu button {
   background: none;
   border: none;
@@ -49,49 +47,54 @@ body {
   color: white;
   font-size: 1rem;
   cursor: pointer;
-  background-size: 2.3vw;
-  background-repeat: no-repeat;
-  background-position: center;
+   background-size: 2.3vw;
+      background-repeat: no-repeat;
+      background-position: center;
+      border: none;
+      cursor: pointer;
+    
+
+  
 }
 
-/* Блок переключения языка */
 .hi_to_hi {
-  padding: 0.8rem;
-  background-size: 2.3vw;
-  background-repeat: no-repeat;
-  background-position: center;
-  width: 2vw;
-  height: 2vw;
+padding: 0.8rem 0.8rem;
+      background-size: 2.3vw;
+      background-repeat: no-repeat;
+      background-position: center;
+      border: none;
+      cursor: pointer;
+      width: 2vw;
+      height: 2vw;
+
 }
 
-/* Кнопка переключения языка */
 .main_hi {
-  width: 100%;
-  height: 100%;
+  width: 100%;  /* или конкретный размер, например 5vw */
+  height: 100%; /* или конкретный размер, например 5vw */
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
   cursor: pointer;
-  padding: 0;
+  padding: 0; /* если padding мешает */
   border: none;
   box-sizing: border-box;
 }
 
-/* Описание проекта */
-.opisanie_proekta {
+.opisanie_proekta{
   display: flex;
   flex-direction: column;
   width: 50vw;
   height: fit-content;
   position: relative;
-  top: 30%;
+ margin-top: 20vw;
   left: 50%;
   transform: translate(-50%, -50%);
-  font-family: "Regular", sans-serif;
+   font-family: "Regular", sans-serif;
   gap: 1.5vw;
 }
 
-/* Основной текст описания проекта */
+
 .basic_text_1 {
   font-family: "SemiBold";
   font-style: normal;
@@ -103,14 +106,12 @@ body {
   text-align: left;
 }
 
-/* Блок с мини-подписями */
 .mini_podpisi {
   display: flex;
-  justify-content: space-between;
-  width: 100%;
+  justify-content: space-between; 
+  width: 100%;        
 }
 
-/* Внутренний блок мини-подписей */
 .mini_podpisi_nachinka {
   display: flex;
   flex-direction: row;
@@ -119,20 +120,17 @@ body {
   color: #ffffff;
 }
 
-/* Стиль для слова "куратор" */
 .curator {
   font-size: 0.9vw;
   font-weight: 400;
   color: #ffffff;
 }
 
-/* Имя куратора */
 .name_of_curator {
   font-size: 1.5vw;
   font-weight: 400;
 }
 
-/* Контейнер книги и слайдеров */
 .nachinka_book {
   display: flex;
   flex-direction: column;
@@ -144,15 +142,15 @@ body {
   gap: 5vw;
 }
 
-/* Ссылка "View the full case" */
+
 .loliki {
   font-size: 1.5vw;
   font-weight: 400;
   color: rgba(255, 255, 255, 0.457);
 }
 
-/* Второе описание проекта (если используется) */
-.opisanie_proekta_2 {
+
+.opisanie_proekta_2{
   display: flex;
   flex-direction: column;
   width: 50vw;
@@ -161,11 +159,11 @@ body {
   top: 10%;
   left: 50%;
   transform: translate(-50%, -50%);
-  font-family: "Regular", sans-serif;
+   font-family: "Regular", sans-serif;
   gap: 1.5vw;
 }
 
-@media (max-width: 1024px) and (min-width: 768px) {
+ @media (max-width: 1024px) and (min-width: 768px) {
   
 /* Главное меню */
 .main_menu {
@@ -243,6 +241,7 @@ body {
 
 .opisanie_proekta {
     width: 70vw;
+    margin-top: 26vw;
 }
 
 .curator {
