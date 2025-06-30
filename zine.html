@@ -6,297 +6,20 @@
   <meta property="og:title" content="NOT" />
   <meta property="og:description" content="imaginary music site" />
   <link rel="icon" type="image/x-icon" href="images/favicon.png" />
-  <link rel="stylesheet" href="stylesheets/style.css" />
+  <link rel="stylesheet" href="stylesheets/content.css" />
+  <link rel="stylesheet" href="stylesheets/adaptive.css" />
   <link rel="stylesheet" href="https://unpkg.com/flickity@2/dist/flickity.min.css" />
   <title>NOT</title>
-  <style>
-
-
-    html {
-      overflow-x: hidden;
-    }
-
-    body {
-      margin: 0;
-      padding: 0;
-      min-height: 200vh;
-      width: 100%;
-      overflow-x: hidden;
-      background-color: #ffffff;
-    }
-
-    /* Основной контейнер контента */
-    .content-wrapper {
-      position: relative;
-      z-index: 1;
-      min-height: 100vh;
-      width: 100%;
-    }
-
-    /* Слайдер */
-    .wrap_without_text_below.mt_small {
-      width: 100%;
-      padding: 0 0 4vw;
-      position: relative;
-      user-select: none;
-      touch-action: pan-y;
-      top: 70%;
-    }
-
-    /* Контейнер слайдера */
-    .slider-container {
-      width: 100%;
-      margin: 0 auto;
-      overflow: hidden;
-      position: relative;
-    }
-
-    /* Главный слайдер */
-    .main-slider {
-      height: 47.5vw;
-      margin-bottom: 1vw;
-      position: relative;
-    }
-
-    .main-slider .flickity-viewport {
-      padding: 4vw 0;
-      box-sizing: content-box;
-    }
-
-    .flickity-viewport {
-      overflow: hidden;
-      position: relative;
-      height: 9vw;
-    }
-
-    .carousel-cell {
-      margin-right: 3vw;
-      flex-shrink: 0;
-    }
-
-    .carousel-cell:last-child {
-      margin-right: 0;
-    }
-
-    .main-slider img {
-      border-radius: 1vw;
-      width: 37.5vw;
-      object-fit: contain;
-      user-select: none;
-      cursor: default;
-      transition: transform 0.3s ease, opacity 0.3s ease;
-      transform-style: preserve-3d;
-      opacity: 0.6;
-      transform-origin: center center;
-      box-shadow: 0 0 2vw rgba(0, 0, 0, 0.5);
-    }
-
-    /* Активный слайд */
-    .main-slider .is-selected img {
-      opacity: 1;
-      transform: rotateY(0deg) scale(1);
-      z-index: 10;
-    }
-
-
-    .main-slider .carousel-cell.is-prev img,
-    .main-slider .carousel-cell.is-next img {
-      transform: rotateY(40deg) scale(0.8);
-      opacity: 0.8;
-      z-index: 5;
-    }
-
-    .main-slider .carousel-cell.is-prev-prev img {
-      transform: rotateY(60deg) scale(0.6);
-      opacity: 0.5;
-      z-index: 1;
-    }
-
-    .main-slider .carousel-cell.is-next-next img {
-      transform: rotateY(-60deg) scale(0.6);
-      opacity: 0.5;
-      z-index: 1;
-    }
-
-    /* Кнопки навигации */
-    .flickity-prev-next-button {
-      width: 4vw;
-      height: 4vw;
-      background: rgba(53, 52, 52, 0.60);
-      backdrop-filter: blur(100vw);
-      border: 1px solid rgba(255, 255, 255, 0.3);
-      border-radius: 1vw;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #fff;
-      font-size: 0;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      opacity: 0;
-      pointer-events: none;
-      z-index: 10;
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-    }
-
-    .flickity-prev-next-button.previous {
-      left: 1vw;
-    }
-
-    .flickity-prev-next-button.next {
-      right: 1vw;
-    }
-
-  
-    .slider-container.main-slider:hover .flickity-prev-next-button {
-      opacity: 1;
-      pointer-events: auto;
-    }
-
-    .flickity-prev-next-button:hover {
-      opacity: 1 !important;
-      pointer-events: auto;
-      background: rgba(53, 52, 52, 0.60);
-    }
-
-
-    /* Слайдер миниатюр */
-    .thumbnail-slider {
-  height: auto; /* вместо 9vw */
-  min-height: 80px; /* минимальная высота */
-  overflow: visible; /* вместо hidden */
-  position: relative;
-  z-index: 1;
-  margin-top: 20px; /* отступ от основного слайдера */
-    }
-
-    .thumbnail-slider .flickity-viewport {
-      overflow: visible !important;
-       height: auto !important;
-    }
-
-    .thumbnail-slider .carousel-cell {
-      margin-right: 0.7vw;
-      flex-shrink: 0;
-    }
-
-    .thumbnail-slider .carousel-cell:last-child {
-      margin-right: 0;
-    }
-
-    .thumbnail-slider img {
-      height: auto;
-      border-radius: 0.2vw;
-      box-shadow: 0 0 0.3vw rgba(0, 0, 0, 0.1);
-      cursor: pointer;
-      opacity: 0.6;
-      transition: opacity 0.3s ease, transform 0.3s ease;
-      user-select: none;
-      -webkit-user-drag: none;
-    }
-
-
-    .thumbnail-slider img.is-selected,
-    .thumbnail-slider img:hover {
-      opacity: 1;
-      transform: scale(1.1);
-      box-shadow: 0 0 0.8vw rgba(0, 0, 0, 0.25);
-      z-index: 10;
-      position: relative;
-    }
-
-
-    /* Кликабельная область */
-    .clickable#overlay__project_click_bottom {
-      position: relative;
-      width: 100%;
-      height: 20vh;
-      background: linear-gradient(transparent, rgba(0, 0, 0, 0.2));
-      cursor: pointer;
-      z-index: 10;
-    }
-
-
-    /* Изображение книги */
-    .nachinka_book_photo {
-      margin-top: 0vh;
-    }
-
-    .nachinka_book_photo img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-    }
-
- 
-    
-
-
-    /* Адаптив для планшетов */
-    @media (max-width: 1024px) {
-      .flickity-prev-next-button {
-        width: 6vw;
-        height: 6vw;
-      }
-    
-    }
-
-    /* Адаптив для мобильных устройств */
-    @media (max-width: 768px) {
-
-      
-      .nachinka_book {
-        margin-top: 0;
-      }
-    }
-
-    /* Адаптив для маленьких экранов */
-    @media (max-width: 375px) {
-      .flickity-prev-next-button {
-        width: 10vw;
-        height: 10vw;
-      }
-      
-      .main-slider img {
-        width: 80vw;
-      }
-      
-      .main-slider {
-        height: auto;
-      }
-      
-      .thumbnail-slider img {
-        height: 8vw;
-      }
-    }
-
-    @media (min-width: 1025px) {
-
-  .thumbnail-slider img {
-    height: 90px; 
-  }
-}
-
-  </style>
 </head>
-
 <body>
-  <!-- Размытый фон -->
   <iframe id="blurred-bg" src="works.html" style="position: fixed; top: 0; left: 0; width: 100%; height: 100vh; pointer-events: none; filter: blur(100px); opacity: 0.5; z-index: 0; transform: scale(1.05); user-select: none;" loading="lazy"></iframe>
 
-  <!-- Темный оверлей -->
   <div id="black-overlay" style="position: fixed; top: 0; left: 0; width: 100%; height: 100vh; background: rgba(0, 0, 0, 0.3); pointer-events: none; z-index: 1;"></div>
 
-  <!-- Основной контейнер контента -->
   <div class="content-wrapper">
-    <!-- Области для наведения -->
     <div class="hover-left"></div>
     <div class="hover-right"></div>
 
-    <!-- Главное меню -->
     <section class="main_menu">
       <section class="hi_to_hi">
         <button class="main_hi" id="langToggle"></button>
@@ -308,7 +31,6 @@
       </section>
     </section>
 
-    <!-- Описание проекта -->
     <section class="opisanie_proekta">
       <div class="basic_text_1" data-i18n="projectDescription">
         <p>Zine has the format of a personal diary, and the main character is a DJ, a chronicler of NOT nightlife. His diary is not just notes, but a visual chronicle of everything that surrounded him.</p>
@@ -324,13 +46,11 @@
       </div>
     </section>
 
-    <!-- Раздел с книгой -->
     <section class="nachinka_book">
       <section class="nachinka_book_photo">
         <img src="images/book_nachinka_1.png" alt="Описание изображения" loading="lazy" />
       </section>
 
-      <!-- Слайдер изображений -->
       <section class="wrap_without_text_below mt_small">
         <div class="slider-container main-slider" data-flickity='{ "cellAlign": "center", "contain": true, "pageDots": false, "prevNextButtons": true, "draggable": true, "wrapAround": true, "selectedAttraction": 0.05, "friction": 0.6, "autoPlay": 3000 }'>
           <div class="carousel-cell"><img src="images/book_photo_1.png" class="is-selected" loading="lazy" /></div>
@@ -358,7 +78,6 @@
           <div class="carousel-cell"><img src="images/book_photo_23.png" loading="lazy" /></div>
         </div>
 
-        <!-- Слайдер миниатюр -->
         <div class="slider-container thumbnail-slider in_overlay" data-flickity='{ "asNavFor": ".main-slider", "contain": true, "pageDots": false, "prevNextButtons": false, "cellAlign": "left", "draggable": true }'>
           <div class="carousel-cell"><img src="images/book_photo_1.png" class="is-selected" loading="lazy" /></div>
           <div class="carousel-cell"><img src="images/book_photo_2.png" loading="lazy" /></div>
@@ -386,7 +105,6 @@
         </div>
       </section>
 
-      <!-- Кликабельная область -->
       <div class="clickable" id="overlay__project_click_bottom"></div>
     </section>
   </div>
@@ -394,6 +112,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
   <script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js"></script>
+  <script src="stylesheets/java-script.js"></script>
 
   <script>
     // Инициализация фона кнопки
