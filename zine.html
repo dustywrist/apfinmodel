@@ -164,14 +164,17 @@
 
     /* Слайдер миниатюр */
     .thumbnail-slider {
-      height: 9vw;
-      overflow: hidden;
-      position: relative;
-      z-index: 1;
+  height: auto; /* вместо 9vw */
+  min-height: 80px; /* минимальная высота */
+  overflow: visible; /* вместо hidden */
+  position: relative;
+  z-index: 1;
+  margin-top: 20px; /* отступ от основного слайдера */
     }
 
     .thumbnail-slider .flickity-viewport {
       overflow: visible !important;
+       height: auto !important;
     }
 
     .thumbnail-slider .carousel-cell {
@@ -184,7 +187,7 @@
     }
 
     .thumbnail-slider img {
-      height: 5vw;
+      height: auto;
       border-radius: 0.2vw;
       box-shadow: 0 0 0.3vw rgba(0, 0, 0, 0.1);
       cursor: pointer;
@@ -269,6 +272,14 @@
         height: 8vw;
       }
     }
+
+    @media (min-width: 1025px) {
+
+  .thumbnail-slider img {
+    height: 90px; 
+  }
+}
+
   </style>
 </head>
 
@@ -485,18 +496,18 @@
       ease: "power3.out"
     });
 
-    gsap.from('.thumbnail-slider .carousel-cell', {
-      scrollTrigger: {
-        trigger: '.thumbnail-slider',
-        start: 'top 85%'
-      },
-      opacity: 0,
-      y: 30,
-      stagger: 0.04,
-      duration: 0.6,
-      ease: "power2.out"
-    });
-
+gsap.from('.thumbnail-slider .carousel-cell', {
+  scrollTrigger: {
+    trigger: '.wrap_without_text_below', // родительский контейнер
+    start: 'top 78%', 
+  
+  },
+  opacity: 0,
+  y: 30,
+  stagger: 0.04,
+  duration: 0.6,
+  ease: "power2.out"
+});
     // Навигация
     document.querySelectorAll('.main_hi').forEach(btn => {
       btn.addEventListener('click', () => {
