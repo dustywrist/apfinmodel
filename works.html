@@ -11,247 +11,178 @@
   <title>NOT</title>
 
   <style>
-
     body {
       margin: 0;
       padding: 0;
       overflow-x: hidden;
       background-color: #000000;
-      width: 140vw;
+      width: 100vw; /* Изменено с 140vw на 100vw */
     }
 
     .my_works {
-  display: flex;
-  flex-direction: row;
-  height: 100vh;
-  width: 140vw; 
-  overflow-x: auto;
-  scroll-snap-type: x mandatory;
-}
-
-.panel {
-  scroll-snap-align: start;
-  height: 100vh;
-  position: relative;
-  overflow: hidden;
-}
-
-.panel_1 {
-  width: 30vw;
-}
-.panel_2 {
-  width: 70vw;
-}
-.panel_3 {
-  width: 40vw;
-}
-
-.zine_work, .creative_website, .posters {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-position: center;
-  background-size: 100%;
-  background-repeat: no-repeat;
-  
-}
-
-.zine_work {
-  background-image: url(./images/book_prew_1.png);
-}
-
-.creative_website {
-  background-image: url(./images/site_prew.png);
-}
-
-.posters {
-  background-image: url(./images/poster_prew.png);
-}
-
-.button_1 {
-  position: absolute;
-  bottom: 1vw;
-  right: 1vw;
-  background: rgba(53, 52, 52, 0.60);
-  backdrop-filter: blur(100vw);
-  color: white;
-  border: none;
-  padding: 1vw;
-  border-radius: 0.5vw;
-  font-size: 1rem;
-  cursor: pointer;
-  z-index: 100;
-  white-space: nowrap;
-}
-
-
-.panel {
-  position: relative;
-  overflow: hidden;
-}
-
-.panel_video {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  position: absolute;
-  top: 0;
-  left: 0;
-  opacity: 0;
-  transition: opacity 0.6s ease;
-  pointer-events: none;
-}
-
-.panel:hover .panel_video {
-  opacity: 1;
-}
-
- @media (max-width: 1024px) and (min-width: 768px) {
-    /* Контейнер работ теперь вертикальный */
-    .my_works {
-      flex-direction: column;
-      height: auto;
-      scroll-snap-type: none;
-      overflow-x: hidden;
-      overflow-y: auto;
-      width: 100vw;
-    }
-
-    /* Все панели теперь 100% ширины */
-    .panel {
-      width: 100vw !important;
+      display: flex;
+      flex-direction: row;
       height: 100vh;
+      width: auto; /* Оставляем auto */
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
     }
 
-    /* Кнопка занимает всю ширину и центрируется */
-    .button_1 {
-    position: relative;
-    display: block;
-    margin: 124vw auto;
-    width: 90vw;
-    text-align: center;
-    padding: 1rem 1.5rem;
-    font-size: 1.1rem;
-    border-radius: 1rem;
-    white-space: normal; /* позволяет перенос текста */
-    line-height: 1.4;
-    max-width: 100%;
-  }
-    /* Отключаем горизонтальный scrollTrigger */
-    body {
-      width: 100vw;
-    }
-
-    /* Для видео — также адаптируем */
-    .panel_video {
-      position: relative;
-      width: 100%;
-      height: auto;
-    }
-
-        .panel_1 {
-  height: 149vw;
-}
-.panel_2 {
-  height: 95vw;
-}
-.panel_3 {
-  height: 137vw;
-}
-
-#pan_1 {
-margin: 136vw auto;
-}
-
-#pan_2 {
-margin: 83vw auto;
-}
-
-#pan_3 {
-margin: 125vw auto;
-
-  }
-
- }
-
-@media (max-width: 375px) {
-
-
-   
-
-    /* Контейнер работ теперь вертикальный */
-    .my_works {
-      flex-direction: column;
-      height: auto;
-      scroll-snap-type: none;
-      overflow-x: hidden;
-      overflow-y: auto;
-      width: 100vw;
-    }
-
-    /* Все панели теперь 100% ширины */
     .panel {
-      width: 100vw !important;
+      scroll-snap-align: start;
       height: 100vh;
-    }
-
-    /* Кнопка занимает всю ширину и центрируется */
-    .button_1 {
-    position: relative;
-    display: block;
-    width: 90vw;
-    text-align: center;
-    padding: 0.6rem 1.5rem;
-    font-size: 1.1rem;
-    border-radius: 0.4rem;
-    white-space: normal; /* позволяет перенос текста */
-    line-height: 1.4;
-    max-width: 100%;
-  }
-    /* Отключаем горизонтальный scrollTrigger */
-    body {
-      width: 100vw;
-    }
-
-    /* Для видео — также адаптируем */
-    .panel_video {
       position: relative;
-      width: 100%;
-      height: auto;
+      overflow: hidden;
+      flex-shrink: 0;
     }
 
-    .panel_1 {
-  height: 149vw;
-}
-.panel_2 {
-  height: 96vw;
-}
-.panel_3 {
-  height: 138vw;
-}
+    .zine_work, .creative_website, .posters {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-position: center;
+      background-size: contain;
+      background-repeat: no-repeat;
+    }
 
-#pan_1 {
-margin: 136vw auto;
-}
+    .zine_work {
+      background-image: url(./images/book_prew_1.png);
+    }
 
-#pan_2 {
-margin: 83vw auto;
-}
+    .creative_website {
+      background-image: url(./images/site_prew.png);
+    }
 
-#pan_3 {
-margin: 125vw auto;
-}
+    .posters {
+      background-image: url(./images/poster_prew.png);
+    }
 
-}
+    .button_1 {
+      position: absolute;
+      bottom: 1vw;
+      right: 1vw;
+      background: rgba(53, 52, 52, 0.60);
+      backdrop-filter: blur(100vw);
+      color: white;
+      border: none;
+      padding: 1vw;
+      border-radius: 0.5vw;
+      font-size: 1rem;
+      cursor: pointer;
+      z-index: 100;
+      white-space: nowrap;
+    }
 
-@media (max-width: 1024px) {
-  .panel:hover .panel_video {
-    opacity: 0 !important;
-  }
-}
+    .panel {
+      position: relative;
+      overflow: hidden;
+    }
 
+    .panel_video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      position: absolute;
+      top: 0;
+      left: 0;
+      opacity: 0;
+      transition: opacity 0.6s ease;
+      pointer-events: none;
+    }
+
+    .panel:hover .panel_video {
+      opacity: 1;
+    }
+
+    @media (max-width: 1024px) and (min-width: 768px) {
+      .my_works {
+        flex-direction: column;
+        height: auto;
+        scroll-snap-type: none;
+        overflow-x: hidden;
+        overflow-y: auto;
+        width: 100vw;
+      }
+
+      .panel {
+        width: 100vw !important;
+        height: auto;
+        aspect-ratio: 1/1;
+      }
+
+      .button_1 {
+        position: relative;
+        display: block;
+        width: 90vw;
+        text-align: center;
+        padding: 1rem 1.5rem;
+        font-size: 1.1rem;
+        border-radius: 1rem;
+        white-space: normal;
+        line-height: 1.4;
+        max-width: 100%;
+         margin: 44rem auto;
+      }
+      
+      body {
+        width: 100vw;
+      }
+
+      .panel_video {
+        position: relative;
+        width: 100%;
+        height: auto;
+      }
+    }
+
+    @media (max-width: 375px) {
+      .my_works {
+        flex-direction: column;
+        height: auto;
+        scroll-snap-type: none;
+        overflow-x: hidden;
+        overflow-y: auto;
+        width: 100vw;
+      }
+
+      .panel {
+        width: 100vw !important;
+        height: auto;
+        aspect-ratio: 1/1;
+      }
+
+      .button_1 {
+        position: relative;
+        display: block;
+        width: 90vw;
+        text-align: center;
+        padding: 0.6rem 1.5rem;
+        font-size: 1.1rem;
+        border-radius: 0.4rem;
+        white-space: normal;
+        line-height: 1.4;
+        max-width: 100%;
+        margin: 20rem auto;
+      }
+      
+      body {
+        width: 100vw;
+      }
+
+      .panel_video {
+        position: relative;
+        width: 100%;
+        height: auto;
+      }
+    }
+
+    @media (max-width: 1024px) {
+      .panel:hover .panel_video {
+        opacity: 0 !important;
+      }
+    }
   </style>
 </head>
 <body>
@@ -272,7 +203,7 @@ margin: 125vw auto;
   <!-- Секция работ -->
   <section class="my_works">
     <!-- Панель 1 -->
-    <section class="panel panel_1">
+    <section class="panel">
       <button class="button_1" id="pan_1" data-i18n="zineDesign">Zine design</button>
       <div class="zine_work">
         <video class="panel_video" muted loop preload="none" playsinline loading="lazy">
@@ -282,7 +213,7 @@ margin: 125vw auto;
     </section>
 
     <!-- Панель 2 -->
-    <section class="panel panel_2">
+    <section class="panel">
       <button class="button_1" id="pan_2" data-i18n="creativeWebsite">Creative website for the festival</button>
       <div class="creative_website">
         <video class="panel_video" muted loop preload="none" playsinline loading="lazy">
@@ -292,7 +223,7 @@ margin: 125vw auto;
     </section>
 
     <!-- Панель 3 -->
-    <section class="panel panel_3">
+    <section class="panel">
       <button class="button_1" id="pan_3" data-i18n="posters">Posters</button>
       <div class="posters">
         <video class="panel_video" muted loop preload="none" playsinline loading="lazy">
@@ -307,35 +238,88 @@ margin: 125vw auto;
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
 
   <script>
- gsap.registerPlugin(ScrollTrigger);
-
-function initScrollAnimation() {
-  // Удаляем все предыдущие ScrollTrigger
-  ScrollTrigger.getAll().forEach(trigger => trigger.kill());
-
-  const screenWidth = window.innerWidth;
-
-  // Горизонтальный скролл для десктопов и телефонов
-  if (screenWidth > 1024 || screenWidth < 375) {
-    gsap.to(".my_works", {
-      xPercent: -28.5,
-      ease: "none",
-      scrollTrigger: {
-        trigger: ".my_works",
-        pin: true,
-        scrub: 1,
-        snap: 1 / 2,
-        end: () => "+=" + document.querySelector(".my_works").offsetWidth
+    // Функция для установки размеров панелей на основе изображений
+    function setPanelSizes() {
+      const panels = document.querySelectorAll('.panel');
+      
+      // Для десктопной версии
+      if (window.innerWidth > 1024) {
+        // Загружаем изображения и устанавливаем размеры панелей
+        const imageUrls = [
+          './images/book_prew_1.png',
+          './images/site_prew.png',
+          './images/poster_prew.png'
+        ];
+        
+        // Создаем временные изображения для получения их размеров
+        imageUrls.forEach((url, index) => {
+          const img = new Image();
+          img.onload = function() {
+            const aspectRatio = this.width / this.height;
+            // Устанавливаем ширину панели на основе соотношения сторон
+            panels[index].style.width = `${100 * aspectRatio}vh`;
+            
+            // После установки всех размеров, инициализируем скролл анимацию
+            if (index === imageUrls.length - 1) {
+              initScrollAnimation();
+            }
+          };
+          img.src = url;
+        });
+      } else {
+        // Для мобильных версий просто инициализируем скролл
+        initScrollAnimation();
       }
-    });
-  }
+    }
 
-}
-// Запускаем и пересоздаем при изменении размеров окна
-initScrollAnimation();
-window.addEventListener("resize", () => {
-  initScrollAnimation();
-});
+    gsap.registerPlugin(ScrollTrigger);
+
+    function initScrollAnimation() {
+      // Удаляем все предыдущие ScrollTrigger
+      ScrollTrigger.getAll().forEach(trigger => trigger.kill());
+
+      const screenWidth = window.innerWidth;
+
+      // Горизонтальный скролл только для десктопов
+      if (screenWidth > 1024) {
+        const panels = document.querySelectorAll('.panel');
+        let totalWidth = 0;
+        
+        // Вычисляем общую ширину всех панелей
+        panels.forEach(panel => {
+          totalWidth += panel.offsetWidth;
+        });
+        
+        // Устанавливаем ширину контейнера равной общей ширине панелей
+        document.querySelector('.my_works').style.width = `${totalWidth}px`;
+        
+        // Вычисляем общее смещение для анимации (общая ширина - ширина окна)
+        const maxOffset = totalWidth - window.innerWidth;
+        
+        gsap.to(".my_works", {
+          x: -maxOffset,
+          ease: "none",
+          scrollTrigger: {
+            trigger: ".my_works",
+            pin: true,
+            scrub: 1,
+            snap: {
+              snapTo: 1 / (panels.length - 1),
+              duration: {min: 0.1, max: 0.3},
+              delay: 0
+            },
+            end: () => `+=${maxOffset}`
+          }
+        });
+      }
+    }
+
+    // Вызываем функцию после загрузки страницы
+    window.addEventListener('load', setPanelSizes);
+    // И при изменении размеров окна
+    window.addEventListener('resize', () => {
+      setPanelSizes();
+    });
 
     // Переключение иконок на кнопке языка
     const btn = document.querySelector('.main_hi');
@@ -373,38 +357,37 @@ window.addEventListener("resize", () => {
 
     // Наведение на панель — воспроизведение видео
     const panels = document.querySelectorAll(".panel");
- if (window.innerWidth > 1024) {
-  panels.forEach(panel => {
-    const video = panel.querySelector(".panel_video");
-    panel.addEventListener("mouseenter", () => {
-      if (video) {
-        video.style.opacity = "1";
-        video.play();
-      }
-    });
-    panel.addEventListener("mouseleave", () => {
-      if (video) {
-        video.style.opacity = "0";
-        setTimeout(() => {
-          video.pause();
-          video.currentTime = 0;
-        }, 600);
-      }
-    });
-  });
-}
-
+    if (window.innerWidth > 1024) {
+      panels.forEach(panel => {
+        const video = panel.querySelector(".panel_video");
+        panel.addEventListener("mouseenter", () => {
+          if (video) {
+            video.style.opacity = "1";
+            video.play();
+          }
+        });
+        panel.addEventListener("mouseleave", () => {
+          if (video) {
+            video.style.opacity = "0";
+            setTimeout(() => {
+              video.pause();
+              video.currentTime = 0;
+            }, 600);
+          }
+        });
+      });
+    }
 
     // Переходы по панелям
-    document.querySelector('.panel_1')?.addEventListener('click', () => {
+    document.querySelectorAll('.panel')[0]?.addEventListener('click', () => {
       window.location.href = 'zine.html';
     });
 
-    document.querySelector('.panel_2')?.addEventListener('click', () => {
+    document.querySelectorAll('.panel')[1]?.addEventListener('click', () => {
       window.location.href = 'cite.html';
     });
 
-    document.querySelector('.panel_3')?.addEventListener('click', () => {
+    document.querySelectorAll('.panel')[2]?.addEventListener('click', () => {
       window.location.href = 'posters.html';
     });
 
@@ -456,9 +439,6 @@ window.addEventListener("resize", () => {
         ease: "power2.out"
       }
     );
-
-
   </script>
-
 </body>
 </html>

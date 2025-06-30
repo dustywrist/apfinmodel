@@ -187,6 +187,7 @@ padding: 0.8rem 0.8rem;
   .main_menu button {
     font-size: 0.9rem; /* чуть меньше шрифт */
     padding: 0.4rem 0.8rem;
+    background-size: 4vw;
   }
 
   .hi_to_hi {
