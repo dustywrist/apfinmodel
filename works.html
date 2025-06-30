@@ -1,20 +1,198 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <!-- Мета-информация -->
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta property="og:title" content="NOT" />
   <meta property="og:description" content="imaginary music site" />
   <link rel="icon" type="image/x-icon" href="images/favicon.png" />
-  <link rel="stylesheet" href="stylesheets/content.css" />
-  <link rel="stylesheet" href="stylesheets/adaptive.css" />
+  <link rel="stylesheet" href="stylesheets/style.css" />
   <title>NOT</title>
+
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      overflow-x: hidden;
+      background-color: #000000;
+      width: 100vw; 
+    }
+
+    .my_works {
+      display: flex;
+      flex-direction: row;
+      height: 100vh;
+      width: auto; 
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+    }
+
+    .panel {
+      scroll-snap-align: start;
+      height: 100vh;
+      position: relative;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+
+    .zine_work, .creative_website, .posters {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-position: center;
+      background-size: contain;
+      background-repeat: no-repeat;
+    }
+
+    .zine_work {
+      background-image: url(./images/book_prew_1.png);
+    }
+
+    .creative_website {
+      background-image: url(./images/site_prew.png);
+    }
+
+    .posters {
+      background-image: url(./images/poster_prew.png);
+    }
+
+    .button_1 {
+      position: absolute;
+      bottom: 1vw;
+      right: 1vw;
+      background: rgba(53, 52, 52, 0.60);
+      backdrop-filter: blur(100vw);
+      color: white;
+      border: none;
+      padding: 1vw;
+      border-radius: 0.5vw;
+      font-size: 1rem;
+      cursor: pointer;
+      z-index: 100;
+      white-space: nowrap;
+    }
+
+    .panel {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .panel_video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      position: absolute;
+      top: 0;
+      left: 0;
+      opacity: 0;
+      transition: opacity 0.6s ease;
+      pointer-events: none;
+    }
+
+    .panel:hover .panel_video {
+      opacity: 1;
+    }
+
+    @media (max-width: 1024px) and (min-width: 768px) {
+      .my_works {
+        flex-direction: column;
+        height: auto;
+        scroll-snap-type: none;
+        overflow-x: hidden;
+        overflow-y: auto;
+        width: 100vw;
+      }
+
+      .panel {
+        width: 100vw !important;
+        height: auto;
+        aspect-ratio: 1/1;
+      }
+
+      .button_1 {
+        position: relative;
+        display: block;
+        width: 90vw;
+        text-align: center;
+        padding: 1rem 1.5rem;
+        font-size: 1.1rem;
+        border-radius: 1rem;
+        white-space: normal;
+        line-height: 1.4;
+        max-width: 100%;
+         margin: 44rem auto;
+      }
+      
+      body {
+        width: 100vw;
+      }
+
+      .panel_video {
+        position: relative;
+        width: 100%;
+        height: auto;
+      }
+    }
+
+    @media (max-width: 375px) {
+      .my_works {
+        flex-direction: column;
+        height: auto;
+        scroll-snap-type: none;
+        overflow-x: hidden;
+        overflow-y: auto;
+        width: 100vw;
+      }
+
+      .panel {
+        width: 100vw !important;
+        height: auto;
+        aspect-ratio: 1/1;
+      }
+
+      .button_1 {
+        position: relative;
+        display: block;
+        width: 90vw;
+        text-align: center;
+        padding: 0.6rem 1.5rem;
+        font-size: 1.1rem;
+        border-radius: 0.4rem;
+        white-space: normal;
+        line-height: 1.4;
+        max-width: 100%;
+        margin: 20rem auto;
+      }
+      
+      body {
+        width: 100vw;
+      }
+
+      .panel_video {
+        position: relative;
+        width: 100%;
+        height: auto;
+      }
+    }
+
+    @media (max-width: 1024px) {
+      .panel:hover .panel_video {
+        opacity: 0 !important;
+      }
+    }
+  </style>
 </head>
 <body>
+
+  <!-- Главное меню -->
   <section class="main_menu">
     <section class="hi_to_hi">
       <button class="main_hi" id="langToggle" data-i18n="lang"></button>
     </section>
+
     <section class="three_words_meny">
       <button class="go-author" data-i18n="author">Author</button>
       <button class="go-works" data-i18n="works">Works</button>
@@ -22,7 +200,9 @@
     </section>
   </section>
 
+  <!-- Секция работ -->
   <section class="my_works">
+    <!-- Панель 1 -->
     <section class="panel">
       <button class="button_1" id="pan_1" data-i18n="zineDesign">Zine design</button>
       <div class="zine_work">
@@ -32,6 +212,7 @@
       </div>
     </section>
 
+    <!-- Панель 2 -->
     <section class="panel">
       <button class="button_1" id="pan_2" data-i18n="creativeWebsite">Creative website for the festival</button>
       <div class="creative_website">
@@ -41,6 +222,7 @@
       </div>
     </section>
 
+    <!-- Панель 3 -->
     <section class="panel">
       <button class="button_1" id="pan_3" data-i18n="posters">Posters</button>
       <div class="posters">
@@ -51,9 +233,9 @@
     </section>
   </section>
 
+  <!-- Подключение библиотек GSAP -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-  <script src="stylesheets/java-script.js"></script>
 
   <script>
     // Функция для установки размеров панелей на основе изображений
